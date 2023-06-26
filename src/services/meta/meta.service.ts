@@ -63,7 +63,7 @@ class MetaService implements IMetaService {
     document.title = 'Balancer';
     descriptionMeta?.setAttribute(
       'content',
-      'A UI that supports core Balancer protocol functionality. Explore & create pools, manage liquidity, swap tokens, get veBAL and claim incentives.'
+      'A UI that supports core Balancer protocol functionality. Explore & create pools, manage liquidity, swap tokens, get veNFTE and claim incentives.'
     );
   }
 }

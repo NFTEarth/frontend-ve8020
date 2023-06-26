@@ -3,7 +3,7 @@ import { poolsStoreService } from '@/services/pool/pools-store.service';
 import { Pool } from '@/services/pool/types';
 import { BoostedPoolMock } from '@/__mocks__/boosted-pool';
 import { mountComposableWithFakeTokensProvider as mountComposable } from '@tests/mount-helpers';
-import { aVeBalPool } from '@tests/unit/builders/pool.builders';
+import { aveNFTEPool } from '@tests/unit/builders/pool.builders';
 import { createRouter, createWebHistory } from 'vue-router';
 import waitForExpect from 'wait-for-expect';
 import useDisabledJoinsGuard from './useDisabledJoinsGuard';
@@ -42,9 +42,9 @@ async function mountTransferGuards(pool: Pool) {
 
 describe('When checking disabled pool joins', () => {
   it('does not redirect where no disabled joins', async () => {
-    const veBalPool = aVeBalPool();
+    const veNFTEPool = aveNFTEPool();
 
-    await mountTransferGuards(veBalPool);
+    await mountTransferGuards(veNFTEPool);
 
     expect(mockRouter.push).not.toHaveBeenCalled();
   });

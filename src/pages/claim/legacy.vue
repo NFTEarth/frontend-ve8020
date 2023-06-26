@@ -6,7 +6,6 @@ import useWeb3 from '@/services/web3/useWeb3';
 import {
   isArbitrum,
   isMainnet,
-  isGoerli,
   isPolygon,
 } from '@/composables/useNetwork';
 

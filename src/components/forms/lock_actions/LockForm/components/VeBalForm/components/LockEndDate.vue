@@ -4,7 +4,7 @@ import { computed, onBeforeMount } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { INPUT_DATE_FORMAT } from '@/components/forms/lock_actions/constants';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 
 import useLockState from '../../../composables/useLockState';
 
@@ -14,7 +14,7 @@ import useLockState from '../../../composables/useLockState';
 type Props = {
   minLockEndDateTimestamp: number;
   maxLockEndDateTimestamp: number;
-  veBalLockInfo?: VeBalLockInfo | null;
+  veNFTELockInfo?: veNFTELockInfo | null;
 };
 
 /**
@@ -27,7 +27,7 @@ const { t } = useI18n();
  * PROPS
  */
 const props = withDefaults(defineProps<Props>(), {
-  veBalLockInfo: null,
+  veNFTELockInfo: null,
 });
 /**
  * STATE
@@ -39,26 +39,26 @@ const { lockEndDate } = useLockState();
  */
 const lockDates = computed(() => [
   {
-    label: t('getVeBAL.lockForm.lockPeriods.2w'),
+    label: t('getveNFTE.lockForm.lockPeriods.2w'),
     action: () => updateLockEndDate(props.minLockEndDateTimestamp),
   },
   {
-    label: t('getVeBAL.lockForm.lockPeriods.1m'),
+    label: t('getveNFTE.lockForm.lockPeriods.1m'),
     action: () =>
       updateLockEndDate(addWeeks(props.minLockEndDateTimestamp, 4).getTime()),
   },
   {
-    label: t('getVeBAL.lockForm.lockPeriods.3m'),
+    label: t('getveNFTE.lockForm.lockPeriods.3m'),
     action: () =>
       updateLockEndDate(addWeeks(props.minLockEndDateTimestamp, 12).getTime()),
   },
   {
-    label: t('getVeBAL.lockForm.lockPeriods.6m'),
+    label: t('getveNFTE.lockForm.lockPeriods.6m'),
     action: () =>
       updateLockEndDate(addWeeks(props.minLockEndDateTimestamp, 24).getTime()),
   },
   {
-    label: t('getVeBAL.lockForm.lockPeriods.1y'),
+    label: t('getveNFTE.lockForm.lockPeriods.1y'),
     action: () => {
       lockEndDate.value = formatDateInput(props.maxLockEndDateTimestamp);
     },
@@ -69,8 +69,8 @@ const lockDates = computed(() => [
  * CALLBACKS
  */
 onBeforeMount(() => {
-  lockEndDate.value = props.veBalLockInfo?.hasExistingLock
-    ? formatDateInput(props.veBalLockInfo.lockedEndDate)
+  lockEndDate.value = props.veNFTELockInfo?.hasExistingLock
+    ? formatDateInput(props.veNFTELockInfo.lockedEndDate)
     : formatDateInput(props.maxLockEndDateTimestamp);
 });
 
@@ -92,7 +92,7 @@ function formatDateInput(date: Date | number) {
   <div class="mb-6">
     <div>
       <p class="pb-2 font-semibold">
-        {{ $t('getVeBAL.lockForm.lockEndDate.title') }}
+        {{ $t('getveNFTE.lockForm.lockEndDate.title') }}
       </p>
     </div>
     <BalTextInput

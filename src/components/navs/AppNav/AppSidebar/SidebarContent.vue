@@ -50,7 +50,7 @@ const navLinks = [
     path: `/${networkSlug}/portfolio`,
     goal: Goals.ClickNavPortfolio,
   },
-  { label: 'veBAL', path: `/${networkSlug}/vebal`, goal: Goals.ClickNavVebal },
+  { label: 'veNFTE', path: `/${networkSlug}/veNFTE`, goal: Goals.ClickNavveNFTE },
 ];
 
 const ecosystemLinks = [

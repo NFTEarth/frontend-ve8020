@@ -5,12 +5,12 @@ import { computed } from 'vue';
 import { PRETTY_DATE_FORMAT } from '@/components/forms/lock_actions/constants';
 import { LockType } from '@/components/forms/lock_actions/LockForm/types';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import { bnum } from '@/lib/utils';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { Pool } from '@/services/pool/types';
 
-import VeBalTooltipExplainer from './VeBalTooltipExplainer.vue';
+import veNFTETooltipExplainer from './veNFTETooltipExplainer.vue';
 
 /**
  * TYPES
@@ -20,9 +20,9 @@ type Props = {
   totalLpTokens: string;
   lockEndDate: string;
   lockAmount: string;
-  expectedVeBalAmount: string;
+  expectedveNFTEAmount: string;
   lockType: LockType[];
-  veBalLockInfo: VeBalLockInfo;
+  veNFTELockInfo: veNFTELockInfo;
 };
 
 /**
@@ -34,7 +34,7 @@ const props = defineProps<Props>();
  * COMPOSABLES
  */
 const { fNum } = useNumbers();
-const { veBalTokenInfo } = useVeBal();
+const { veNFTETokenInfo } = useveNFTE();
 
 /**
  * COMPUTED
@@ -44,7 +44,7 @@ const poolShares = computed(() =>
 );
 
 const fiatTotalLockedAmount = computed(() =>
-  poolShares.value.times(props.veBalLockInfo.lockedAmount).toString()
+  poolShares.value.times(props.veNFTELockInfo.lockedAmount).toString()
 );
 
 const fiatTotalLockAmount = computed(() =>
@@ -72,15 +72,15 @@ const isIncreaseLockOnly = computed(
 <template>
   <div class="summary-table">
     <h6 class="p-2">
-      {{ $t('getVeBAL.previewModal.summary.title') }}
+      {{ $t('getveNFTE.previewModal.summary.title') }}
     </h6>
     <div class="p-2">
       <div class="summary-item-row">
         <div>
           {{
             isExtendLockOnly || isIncreaseLockOnly
-              ? $t('getVeBAL.previewModal.summary.totalAlreadyLocked')
-              : $t('getVeBAL.previewModal.summary.totalToLock')
+              ? $t('getveNFTE.previewModal.summary.totalAlreadyLocked')
+              : $t('getveNFTE.previewModal.summary.totalToLock')
           }}
         </div>
         <div>
@@ -94,7 +94,7 @@ const isIncreaseLockOnly = computed(
       </div>
       <div v-if="isIncreaseLockOnly" class="summary-item-row">
         <div>
-          {{ $t('getVeBAL.previewModal.summary.increasedLockAmount') }}
+          {{ $t('getveNFTE.previewModal.summary.increasedLockAmount') }}
         </div>
         <div>{{ fNum(fiatTotalLockAmount, FNumFormats.fiat) }}</div>
       </div>
@@ -102,19 +102,19 @@ const isIncreaseLockOnly = computed(
         <div>
           {{
             isExtendLockOnly
-              ? $t('getVeBAL.previewModal.summary.newLockEndDate')
-              : $t('getVeBAL.previewModal.summary.lockEndDate')
+              ? $t('getveNFTE.previewModal.summary.newLockEndDate')
+              : $t('getveNFTE.previewModal.summary.lockEndDate')
           }}
         </div>
         <div>{{ format(new Date(lockEndDate), PRETTY_DATE_FORMAT) }}</div>
       </div>
       <div class="summary-item-row">
-        <div>{{ $t('getVeBAL.previewModal.summary.totalVotingEscrow') }}</div>
+        <div>{{ $t('getveNFTE.previewModal.summary.totalVotingEscrow') }}</div>
         <div class="flex items-center">
-          {{ fNum(expectedVeBalAmount, FNumFormats.token) }}
-          {{ veBalTokenInfo?.symbol }}
-          <VeBalTooltipExplainer
-            :expectedVeBalAmount="expectedVeBalAmount"
+          {{ fNum(expectedveNFTEAmount, FNumFormats.token) }}
+          {{ veNFTETokenInfo?.symbol }}
+          <veNFTETooltipExplainer
+            :expectedveNFTEAmount="expectedveNFTEAmount"
             :lockEndDate="lockEndDate"
             :totalLpTokens="totalLpTokens"
           />
@@ -122,7 +122,7 @@ const isIncreaseLockOnly = computed(
       </div>
       <!-- <div class="summary-item-row">
         <div>
-          {{ $t('getVeBAL.previewModal.summary.potentialWeeklyYield') }}
+          {{ $t('getveNFTE.previewModal.summary.potentialWeeklyYield') }}
         </div>
         <div>{{ fNum(fiatWeeklyYield, FNumFormats.fiat) }}</div>
       </div> -->

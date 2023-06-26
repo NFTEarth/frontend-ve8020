@@ -3,9 +3,9 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { LockType } from '@/components/forms/lock_actions/LockForm/types';
-import useVeBalLockInfoQuery from '@/composables/queries/useVeBalLockInfoQuery';
-import { expectedVeBal } from '@/composables/useVeBAL';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import useveNFTELockInfoQuery from '@/composables/queries/useveNFTELockInfoQuery';
+import { expectedveNFTE } from '@/composables/useveNFTE';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { Pool } from '@/services/pool/types';
 import { TokenInfo } from '@/types/TokenList';
 
@@ -23,7 +23,7 @@ type Props = {
   lockAmount: string;
   lockEndDate: string;
   lockType: LockType[];
-  veBalLockInfo: VeBalLockInfo;
+  veNFTELockInfo: veNFTELockInfo;
   totalLpTokens: string;
 };
 
@@ -45,11 +45,11 @@ const lockablePoolTokenInfo = ref(props.lockablePoolTokenInfo);
 const lockAmount = ref(props.lockAmount);
 const lockEndDate = ref(props.lockEndDate);
 const lockType = ref(props.lockType);
-const veBalLockInfo = ref(props.veBalLockInfo);
+const veNFTELockInfo = ref(props.veNFTELockInfo);
 const totalLpTokens = ref(props.totalLpTokens);
 
 // This value should be static when modal is opened.
-const expectedVeBalAmount = expectedVeBal(
+const expectedveNFTEAmount = expectedveNFTE(
   totalLpTokens.value,
   lockEndDate.value
 );
@@ -58,7 +58,7 @@ const expectedVeBalAmount = expectedVeBal(
  * COMPOSABLES
  */
 const { t } = useI18n();
-const { refetch: refetchLockInfo } = useVeBalLockInfoQuery();
+const { refetch: refetchLockInfo } = useveNFTELockInfoQuery();
 const { resetState } = useLockState();
 
 /**
@@ -67,12 +67,12 @@ const { resetState } = useLockState();
 const title = computed(() => {
   if (lockType.value.length === 1) {
     return lockConfirmed.value
-      ? t(`getVeBAL.previewModal.titles.${lockType.value[0]}.confirmed`)
-      : t(`getVeBAL.previewModal.titles.${lockType.value[0]}.default`);
+      ? t(`getveNFTE.previewModal.titles.${lockType.value[0]}.confirmed`)
+      : t(`getveNFTE.previewModal.titles.${lockType.value[0]}.default`);
   }
   return lockConfirmed.value
-    ? t(`getVeBAL.previewModal.titles.${LockType.CREATE_LOCK}.confirmed`)
-    : t(`getVeBAL.previewModal.titles.${LockType.CREATE_LOCK}.default`);
+    ? t(`getveNFTE.previewModal.titles.${LockType.CREATE_LOCK}.confirmed`)
+    : t(`getveNFTE.previewModal.titles.${LockType.CREATE_LOCK}.default`);
 });
 
 /**
@@ -114,12 +114,12 @@ function handleSuccess() {
       :totalLpTokens="totalLpTokens"
       :lockAmount="lockAmount"
       :lockEndDate="lockEndDate"
-      :expectedVeBalAmount="expectedVeBalAmount"
+      :expectedveNFTEAmount="expectedveNFTEAmount"
       :lockType="lockType"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
     />
     <LockActions
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
       :lockConfirmed="lockConfirmed"
       :lockAmount="lockAmount"
       :lockEndDate="lockEndDate"

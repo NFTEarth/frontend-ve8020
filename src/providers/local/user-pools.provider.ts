@@ -9,7 +9,7 @@ import { useLock } from '@/composables/useLock';
 import usePoolsQuery from '@/composables/queries/usePoolsQuery';
 import { fiatValueOf } from '@/composables/usePoolHelpers';
 import { isQueryLoading } from '@/composables/queries/useQueryHelpers';
-import { isVeBalSupported } from '@/composables/useVeBAL';
+import { isveNFTESupported } from '@/composables/useveNFTE';
 import { useTokens } from '../tokens.provider';
 
 /**
@@ -91,7 +91,7 @@ export const provider = (userStaking: UserStakingResponse) => {
       isStakedDataLoading.value ||
       isQueryLoading(userPoolSharesQuery) ||
       isQueryLoading(unstakedPoolsQuery) ||
-      (isVeBalSupported.value && isQueryLoading(lockQuery))
+      (isveNFTESupported.value && isQueryLoading(lockQuery))
   );
 
   // Trigger refetch of queries for staked and unstaked pools.

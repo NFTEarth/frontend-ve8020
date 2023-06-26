@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 
 /**
  * TYPES
  */
 type Props = {
-  expectedVeBalAmount: string;
+  expectedveNFTEAmount: string;
 };
 
 /**
@@ -18,20 +18,20 @@ defineProps<Props>();
  * COMPOSABLES
  */
 const { fNum } = useNumbers();
-const { veBalTokenInfo } = useVeBal();
+const { veNFTETokenInfo } = useveNFTE();
 </script>
 
 <template>
   <div class="container">
     <div class="row">
-      <div>{{ $t('getVeBAL.lockForm.summary.receive.title') }}</div>
+      <div>{{ $t('getveNFTE.lockForm.summary.receive.title') }}</div>
       <div>
         {{
-          expectedVeBalAmount != null
-            ? fNum(expectedVeBalAmount, FNumFormats.token)
+          expectedveNFTEAmount != null
+            ? fNum(expectedveNFTEAmount, FNumFormats.token)
             : '-'
         }}
-        {{ veBalTokenInfo?.symbol }}
+        {{ veNFTETokenInfo?.symbol }}
       </div>
     </div>
   </div>

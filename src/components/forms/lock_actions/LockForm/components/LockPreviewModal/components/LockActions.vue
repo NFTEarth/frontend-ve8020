@@ -20,7 +20,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { TokenInfo } from '@/types/TokenList';
 import { TransactionActionInfo } from '@/types/transactions';
 import useVotingGauges from '@/composables/useVotingGauges';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { ApprovalAction } from '@/composables/approvals/types';
 import { captureException } from '@sentry/browser';
 import useTokenApprovalActions from '@/composables/approvals/useTokenApprovalActions';
@@ -34,7 +34,7 @@ type Props = {
   lockEndDate: string;
   lockType: LockType[];
   lockConfirmed: boolean;
-  veBalLockInfo: VeBalLockInfo;
+  veNFTELockInfo: veNFTELockInfo;
 };
 
 type LockActionState = {
@@ -80,13 +80,13 @@ const { networkSlug } = useNetwork();
 const { getTokenApprovalActions } = useTokenApprovalActions();
 
 const lockActions = props.lockType.map((lockType, actionIndex) => ({
-  label: t(`getVeBAL.previewModal.actions.${lockType}.label`, [
+  label: t(`getveNFTE.previewModal.actions.${lockType}.label`, [
     format(new Date(props.lockEndDate), PRETTY_DATE_FORMAT),
   ]),
-  loadingLabel: t(`getVeBAL.previewModal.actions.${lockType}.loadingLabel`),
-  confirmingLabel: t(`getVeBAL.previewModal.actions.${lockType}.confirming`),
+  loadingLabel: t(`getveNFTE.previewModal.actions.${lockType}.loadingLabel`),
+  confirmingLabel: t(`getveNFTE.previewModal.actions.${lockType}.confirming`),
   action: () => submit(lockType, actionIndex),
-  stepTooltip: t(`getVeBAL.previewModal.actions.${lockType}.tooltip`),
+  stepTooltip: t(`getveNFTE.previewModal.actions.${lockType}.tooltip`),
 }));
 
 const actions = ref<TransactionActionInfo[]>([...lockActions]);
@@ -156,18 +156,18 @@ async function submit(lockType: LockType, actionIndex: number) {
     lockActionStates[actionIndex].init = true;
 
     if (lockType === LockType.CREATE_LOCK) {
-      tx = await balancerContractsService.veBAL.createLock(
+      tx = await balancerContractsService.veNFTE.createLock(
         getProvider(),
         props.lockAmount,
         props.lockEndDate
       );
     } else if (lockType === LockType.EXTEND_LOCK) {
-      tx = await balancerContractsService.veBAL.extendLock(
+      tx = await balancerContractsService.veNFTE.extendLock(
         getProvider(),
         props.lockEndDate
       );
     } else if (lockType === LockType.INCREASE_LOCK) {
-      tx = await balancerContractsService.veBAL.increaseLock(
+      tx = await balancerContractsService.veNFTE.increaseLock(
         getProvider(),
         props.lockAmount
       );
@@ -214,7 +214,7 @@ watch(lockActionStatesConfirmed, () => {
 onBeforeMount(async () => {
   const approvalActions = await getTokenApprovalActions({
     amountsToApprove: amountsToApprove.value,
-    spender: networkConfig.addresses.veBAL,
+    spender: networkConfig.addresses.veNFTE,
     actionType: ApprovalAction.Locking,
   });
   actions.value.unshift(...approvalActions);
@@ -252,30 +252,30 @@ onBeforeMount(async () => {
         </BalLink>
       </div>
       <BalAlert
-        v-if="lockConfirmed && !veBalLockInfo.hasExistingLock"
+        v-if="lockConfirmed && !veNFTELockInfo.hasExistingLock"
         class="mt-4"
         type="tip"
-        :title="t('getVeBAL.previewModal.firstVeBALReceived.title')"
-        :description="t('getVeBAL.previewModal.firstVeBALReceived.description')"
+        :title="t('getveNFTE.previewModal.firstveNFTEReceived.title')"
+        :description="t('getveNFTE.previewModal.firstveNFTEReceived.description')"
       >
       </BalAlert>
       <BalAlert
         v-else-if="shouldResubmitVotes"
         class="mt-4"
         type="warning"
-        :title="t('veBAL.liquidityMining.resubmit.hint.title')"
-        :description="t('veBAL.liquidityMining.resubmit.hint.description')"
+        :title="t('veNFTE.liquidityMining.resubmit.hint.title')"
+        :description="t('veNFTE.liquidityMining.resubmit.hint.description')"
       >
       </BalAlert>
       <BalBtn
         tag="router-link"
-        :to="{ name: 'vebal', params: { networkSlug } }"
+        :to="{ name: 'veNFTE', params: { networkSlug } }"
         color="gray"
         outline
         block
         class="mt-4"
       >
-        {{ $t('getVeBAL.previewModal.returnToVeBalPage') }}
+        {{ $t('getveNFTE.previewModal.returnToveNFTEPage') }}
       </BalBtn>
     </template>
   </div>

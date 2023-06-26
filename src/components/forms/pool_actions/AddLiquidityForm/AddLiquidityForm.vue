@@ -10,7 +10,7 @@ import { bnum, includesAddress, isSameAddress } from '@/lib/utils';
 import { isRequired } from '@/lib/utils/validations';
 import { Pool } from '@/services/pool/types';
 import useWeb3 from '@/services/web3/useWeb3';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 
 import AddLiquidityPreview from './components/AddLiquidityPreview/AddLiquidityPreview.vue';
 import AddLiquidityTotals from './components/AddLiquidityTotals.vue';
@@ -48,7 +48,7 @@ const {
   isPreMintedBptPool,
   poolJoinTokens,
 } = usePoolHelpers(toRef(props, 'pool'));
-const { veBalTokenInfo } = useVeBal();
+const { veNFTETokenInfo } = useveNFTE();
 const { isWalletReady, startConnectWithInjectedProvider, isMismatchedNetwork } =
   useWeb3();
 const { wrappedNativeAsset, nativeAsset, getToken } = useTokens();
@@ -80,8 +80,8 @@ const poolHasLowLiquidity = computed((): boolean =>
 
 const excludedTokens = computed((): string[] => {
   const tokens = [props.pool.address];
-  if (veBalTokenInfo.value) {
-    tokens.unshift(veBalTokenInfo.value.address);
+  if (veNFTETokenInfo.value) {
+    tokens.unshift(veNFTETokenInfo.value.address);
   }
   return tokens;
 });

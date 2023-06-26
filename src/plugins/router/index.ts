@@ -7,7 +7,7 @@ import { applyNavGuards } from './nav-guards';
 const ClaimPage = () => import('@/pages/claim/index.vue');
 const LegacyClaimPage = () => import('@/pages/claim/legacy.vue');
 const CookiesPolicyPage = () => import('@/pages/cookies-policy.vue');
-const GetVeBalPage = () => import('@/pages/get-vebal.vue');
+const GetveNFTEPage = () => import('@/pages/get-veNFTE.vue');
 const HomePage = () => import('@/pages/index.vue');
 const PoolPage = () =>
   import(/* webpackPrefetch: true */ '@/pages/pool/_id.vue');
@@ -22,8 +22,8 @@ const SwapPage = () => import('@/pages/swap.vue');
 export const SwapPagePrefetchLinks = async () =>
   import('@/pages/swap.vue').toString();
 
-const UnlockVeBalPage = () => import('@/pages/unlock-vebal.vue');
-const VeBalPage = () => import('@/pages/vebal.vue');
+const UnlockveNFTEPage = () => import('@/pages/unlock-veNFTE.vue');
+const veNFTEPage = () => import('@/pages/veNFTE.vue');
 const FaucetPage = () => import('@/pages/faucet.vue');
 const BalancesPage = () => import('@/pages/balances.vue');
 
@@ -112,20 +112,20 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: 'JoinExitLayout' },
   },
   {
-    path: '/:networkSlug/vebal',
-    name: 'vebal',
-    component: VeBalPage,
+    path: '/:networkSlug/veNFTE',
+    name: 'veNFTE',
+    component: veNFTEPage,
   },
   {
-    path: '/:networkSlug/get-vebal',
-    name: 'get-vebal',
-    component: GetVeBalPage,
+    path: '/:networkSlug/get-veNFTE',
+    name: 'get-veNFTE',
+    component: GetveNFTEPage,
     meta: { layout: 'FocussedLayout' },
   },
   {
     path: '/:networkSlug/unlock',
     name: 'unlock',
-    component: UnlockVeBalPage,
+    component: UnlockveNFTEPage,
     meta: { layout: 'FocussedLayout' },
   },
   {

@@ -5,7 +5,7 @@ import { useTokens } from '@/providers/tokens.provider';
 import { useUserData } from '@/providers/user-data.provider';
 import usePoolQuery from './queries/usePoolQuery';
 import { fiatValueOf } from './usePoolHelpers';
-import useVeBal, { isVeBalSupported } from './useVeBAL';
+import useveNFTE, { isveNFTESupported } from './useveNFTE';
 
 interface Options {
   enabled?: boolean;
@@ -14,14 +14,14 @@ export function useLock({ enabled = true }: Options = {}) {
   /**
    * COMPOSABLES
    */
-  const { lockablePoolId } = useVeBal();
+  const { lockablePoolId } = useveNFTE();
   const { getToken } = useTokens();
 
   /**
    * QUERIES
    */
   const shouldFetchLockPool = computed(
-    (): boolean => isVeBalSupported.value && enabled
+    (): boolean => isveNFTESupported.value && enabled
   );
   const lockPoolQuery = usePoolQuery(
     lockablePoolId.value as string,
@@ -57,7 +57,7 @@ export function useLock({ enabled = true }: Options = {}) {
       : '0'
   );
 
-  // Total locked shares (veBAL).
+  // Total locked shares (veNFTE).
   const totalLockedShares = computed((): string =>
     lockPool.value && lock.value?.hasExistingLock
       ? lock.value.lockedAmount

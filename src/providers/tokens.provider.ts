@@ -90,7 +90,7 @@ export const tokensProvider = (
     allowanceContracts: compact([
       networkConfig.addresses.vault,
       networkConfig.tokens.Addresses.wstETH,
-      configService.network.addresses.veBAL,
+      configService.network.addresses.veNFTE,
     ]),
     injectedPrices: {},
   });
@@ -480,9 +480,9 @@ export const tokensProvider = (
    * LIFECYCLE
    */
   onBeforeMount(async () => {
-    // Inject veBAL because it's not in tokenlists.
-    const { veBAL } = configService.network.addresses;
-    await injectTokens([veBAL]);
+    // Inject veNFTE because it's not in tokenlists.
+    const { veNFTE } = configService.network.addresses;
+    await injectTokens([veNFTE]);
     state.loading = false;
   });
 

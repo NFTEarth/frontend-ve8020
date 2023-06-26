@@ -13,8 +13,8 @@ import path from 'path';
 
 import { VotingGauge } from '@/constants/voting-gauges';
 import { getPlatformId } from '@/services/coingecko/coingecko.service';
-import VEBalHelpersABI from '@/lib/abi/VEBalHelpers.json';
-import vebalGauge from '../../../public/data/vebal-gauge.json';
+import veNFTEHelpersABI from '@/lib/abi/veNFTEHelpers.json';
+import veNFTEGauge from '../../../public/data/veNFTE-gauge.json';
 import hardcodedGauges from '../../../public/data/hardcoded-gauges.json';
 import config from '../config';
 import { isSameAddress } from '../utils';
@@ -60,9 +60,9 @@ async function getGaugeRelativeWeight(gaugeAddresses: string[]) {
   for (const gaugeAddress of gaugeAddresses) {
     multicaller.call({
       key: gaugeAddress,
-      address: config[Network.MAINNET].addresses.veBALHelpers,
+      address: config[Network.MAINNET].addresses.veNFTEHelpers,
       function: 'gauge_relative_weight',
-      abi: VEBalHelpersABI,
+      abi: veNFTEHelpersABI,
       params: [getAddress(gaugeAddress)],
     });
   }
@@ -573,7 +573,7 @@ function checkRPCIsSet() {
   console.timeEnd('getVotingGauges');
 
   votingGauges = [
-    ...(vebalGauge as VotingGauge[]),
+    ...(veNFTEGauge as VotingGauge[]),
     ...(hardcodedGauges as VotingGauge[]),
     ...votingGauges,
   ];

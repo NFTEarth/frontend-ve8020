@@ -40,7 +40,7 @@ vi.mock('@/composables/queries/useGraphQuery', () => {
   };
 });
 
-vi.mock('@/composables/queries/useVeBalLockInfoQuery', () => {
+vi.mock('@/composables/queries/useveNFTELockInfoQuery', () => {
   return {
     default: vi.fn().mockImplementation(() => {
       return {

@@ -29,7 +29,7 @@ export const Goals = {
   ClickNavLogo: 'OT9IBNCJ',
   ClickNavClaim: 'DQ4RN4GT',
   ClickNavPortfolio: 'VEQEWKKK',
-  ClickNavVebal: 'IVLEEHDK',
+  ClickNavveNFTE: 'IVLEEHDK',
   ClickJoinPoolSettings: 'ZNU2DISP',
   ClickSwapSettings: '1M2HMAYJ',
   ClickAddLiquidity: 'BRT10IGE',

@@ -18,8 +18,8 @@ const showRedirectModal = ref(false);
 /**
  * COMPUTED
  */
-export const isVeBalSupported = computed<boolean>(
-  () => configService.network.addresses.veBAL !== ''
+export const isveNFTESupported = computed<boolean>(
+  () => configService.network.addresses.veNFTE !== ''
 );
 
 /**
@@ -30,11 +30,11 @@ function setShowRedirectModal(newVal: boolean) {
 }
 
 /**
- * @summary Calculate expected veBAL given BPT being locked and lock time in seconds.
+ * @summary Calculate expected veNFTE given BPT being locked and lock time in seconds.
  * @param {string} bpt - BPT amount being locked up
  * @param {str} lockDateStr - Date in string format used to create Date of lock
  */
-export function expectedVeBal(bpt: string, lockDateStr: string): string {
+export function expectedveNFTE(bpt: string, lockDateStr: string): string {
   const now = new Date();
   const lockDate = new Date(lockDateStr);
   const previousThursdayBeforeLockDate = getPreviousThursday(lockDate);
@@ -76,7 +76,7 @@ export function remainingVoteLockTime(lastVoteTime: number): string {
   return formatDistanceToNow(lastUserVoteTime + WEIGHT_VOTE_DELAY);
 }
 
-export default function useVeBal() {
+export default function useveNFTE() {
   /**
    * COMPOSABLES
    */
@@ -86,23 +86,23 @@ export default function useVeBal() {
   /**
    * COMPUTED
    */
-  const veBalTokenInfo = computed(() =>
-    networkConfig.addresses.veBAL
-      ? getToken(networkConfig.addresses.veBAL)
+  const veNFTETokenInfo = computed(() =>
+    networkConfig.addresses.veNFTE
+      ? getToken(networkConfig.addresses.veNFTE)
       : null
   );
 
-  const veBalBalance = computed(() =>
-    balanceFor(networkConfig.addresses.veBAL)
+  const veNFTEBalance = computed(() =>
+    balanceFor(networkConfig.addresses.veNFTE)
   );
 
-  const lockablePoolId = computed(() => POOLS.IdsMap?.veBAL);
+  const lockablePoolId = computed(() => POOLS.IdsMap?.veNFTE);
 
   return {
     // computed
-    isVeBalSupported,
-    veBalTokenInfo,
-    veBalBalance,
+    isveNFTESupported,
+    veNFTETokenInfo,
+    veNFTEBalance,
     lockablePoolId,
     showRedirectModal,
     // methods

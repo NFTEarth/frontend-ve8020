@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import { Network } from '@/lib/config';
 
 import BalModal from '@/components/_global/BalModal/BalModal.vue';
-import useVeBAL from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import { getNetworkSlug } from '@/composables/useNetwork';
 
 /**
@@ -15,7 +15,7 @@ const redirectModal = ref<typeof BalModal>();
 /**
  * COMPOSABLES
  */
-const { showRedirectModal, setShowRedirectModal } = useVeBAL();
+const { showRedirectModal, setShowRedirectModal } = useveNFTE();
 const router = useRouter();
 
 /**
@@ -34,12 +34,12 @@ function handleInternalClose() {
   >
     <template #header>
       <h3>
-        {{ $t('modals.veBalRedirectModal.title') }}
+        {{ $t('modals.veNFTERedirectModal.title') }}
       </h3>
     </template>
     <div>
       <p class="whitespace-pre-line">
-        {{ $t('modals.veBalRedirectModal.description') }}
+        {{ $t('modals.veNFTERedirectModal.description') }}
       </p>
 
       <div class="grid grid-cols-2 grid-rows-1 gap-4 mt-4">

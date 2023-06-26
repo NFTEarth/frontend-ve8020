@@ -32,8 +32,8 @@ async function mountTokenProvider() {
 }
 
 const contractAddress = '0xBA12222222228d8Ba445958a75a0704d566BF2C8';
-const balTokenAddress = '0xfA8449189744799aD2AcE7e0EBAC8BB7575eff47';
-const { veBAL } = configService.network.addresses;
+const nfteTokenAddress = '0xfA8449189744799aD2AcE7e0EBAC8BB7575eff47';
+const { veNFTE } = configService.network.addresses;
 
 // WARNING: these tests (or maybe another one in this suite) are leading to segmentation faults when running the whole suite
 // You can locally add describe.skip to avoid the problem until we find the root cause
@@ -48,10 +48,10 @@ describe('Tokens provider', () => {
     expect(balances.value[balTokenAddress]).toEqual('0.000000000000000025');
   });
 
-  test('injects veBAL onchain data', async () => {
+  test('injects veNFTE onchain data', async () => {
     const { injectedTokens, tokens } = await mountTokenProvider();
 
-    expect(tokens.value[veBAL].name).toEqual(mockedOnchainTokenName);
+    expect(tokens.value[veNFTE].name).toEqual(mockedOnchainTokenName);
 
     expect(injectedTokens.value).toEqual({
       '0x33A99Dcc4C85C014cf12626959111D5898bbCAbF': {
@@ -95,9 +95,9 @@ describe('Tokens provider', () => {
     initMulticallerWithDefaultMocks();
     const { balanceFor, priceFor } = await mountTokenProvider();
 
-    expect(balanceFor(veBAL)).toEqual('0.000000000000000025');
+    expect(balanceFor(veNFTE)).toEqual('0.000000000000000025');
     expect(balanceFor(balTokenAddress)).toEqual('0.000000000000000025');
-    expect(priceFor(veBAL)).toEqual(defaultTokenPrice);
+    expect(priceFor(veNFTE)).toEqual(defaultTokenPrice);
     expect(priceFor(balTokenAddress)).toEqual(defaultTokenPrice);
   });
 

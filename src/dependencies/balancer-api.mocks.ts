@@ -12,7 +12,7 @@ export const defaultPrices = {
       price: defaultTokenPrice,
     },
     {
-      address: configService.network.addresses.veBAL,
+      address: configService.network.addresses.veNFTE,
       price: defaultTokenPrice,
     },
   ],

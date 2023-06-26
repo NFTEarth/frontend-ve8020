@@ -5,7 +5,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import ProportionalWithdrawalInput from './components/ProportionalWithdrawalInput.vue';
 import WithdrawTotals from './components/WithdrawTotals.vue';
 import { useExitPool } from '@/providers/local/exit-pool.provider';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import WithdrawPreviewModal from './components/WithdrawPreviewModal/WithdrawPreviewModal.vue';
 import { useTokens } from '@/providers/tokens.provider';
 import {
@@ -35,7 +35,7 @@ const showPreview = ref(false);
  * COMPOSABLES
  */
 const { t } = useI18n();
-const { veBalTokenInfo } = useVeBal();
+const { veNFTETokenInfo } = useveNFTE();
 const { wrappedNativeAsset, nativeAsset } = useTokens();
 
 const { isWalletReady, startConnectWithInjectedProvider, isMismatchedNetwork } =
@@ -78,8 +78,8 @@ const subsetTokens = computed((): string[] => {
 
 const excludedTokens = computed((): string[] => {
   const tokens = [pool.value.address];
-  if (veBalTokenInfo.value) {
-    tokens.unshift(veBalTokenInfo.value.address);
+  if (veNFTETokenInfo.value) {
+    tokens.unshift(veNFTETokenInfo.value.address);
   }
   return tokens;
 });

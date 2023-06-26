@@ -7,7 +7,7 @@ import useStakedSharesQuery from '@/composables/queries/useStakedSharesQuery';
 import useUserBoostsQuery from '@/composables/queries/useUserBoostsQuery';
 import useUserGaugeSharesQuery from '@/composables/queries/useUserGaugeSharesQuery';
 import useUserPoolSharesQuery from '@/composables/queries/useUserPoolSharesQuery';
-import useVeBalLockInfoQuery from '@/composables/queries/useVeBalLockInfoQuery';
+import useveNFTELockInfoQuery from '@/composables/queries/useveNFTELockInfoQuery';
 import symbolKeys from '@/constants/symbol.keys';
 import { InjectionKey, provide } from 'vue';
 import { safeInject } from './inject';
@@ -29,7 +29,7 @@ export const userDataProvider = () => {
   // Fetches map of boost values for user's staked shares.
   const userBoostsQuery = useUserBoostsQuery(userGaugeShares);
 
-  const lockQuery = useVeBalLockInfoQuery();
+  const lockQuery = useveNFTELockInfoQuery();
 
   return {
     userPoolSharesQuery,

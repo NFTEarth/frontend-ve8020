@@ -62,7 +62,7 @@ export default class BalancesConcern {
         addresses = addresses.filter(
           address => !isSameAddress(address, this.nativeAssetAddress)
         );
-        balanceMap[this.nativeAssetAddress] = await this.fetchNativeBalance(
+        balanceMap[this.nativeAssetAddress] = await this.fetchNativeNFTEance(
           account
         );
       }
@@ -88,7 +88,7 @@ export default class BalancesConcern {
     }
   }
 
-  private async fetchNativeBalance(account: string): Promise<string> {
+  private async fetchNativeNFTEance(account: string): Promise<string> {
     const balance = await this.provider.getBalance(account);
     return formatUnits(balance.toString(), this.nativeAssetDecimals);
   }

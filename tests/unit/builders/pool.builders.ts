@@ -17,11 +17,11 @@ export function aPool(...options: Partial<Pool>[]): Pool {
   return Object.assign(pool, defaults, ...options);
 }
 
-export function aVeBalPool(...options: Partial<Pool>[]): Pool {
+export function aveNFTEPool(...options: Partial<Pool>[]): Pool {
   const pool = mock<Pool>();
-  pool.tokens = [aPoolToken({ symbol: 'veBal' })];
-  const veBalPoolId = POOLS.IdsMap.veBAL as string;
-  const defaults: Partial<Pool> = aPool({ id: veBalPoolId });
+  pool.tokens = [aPoolToken({ symbol: 'veNFTE' })];
+  const veNFTEPoolId = POOLS.IdsMap.veNFTE as string;
+  const defaults: Partial<Pool> = aPool({ id: veNFTEPoolId });
   return Object.assign(pool, defaults, ...options);
 }
 

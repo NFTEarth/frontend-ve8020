@@ -2,7 +2,6 @@ import { Duration, Interval, intervalToDuration, nextThursday } from 'date-fns';
 import { computed, onUnmounted, ref } from 'vue';
 
 import {
-  GOERLI_VOTING_GAUGES,
   MAINNET_VOTING_GAUGES,
   VotingGauge,
 } from '@/constants/voting-gauges';

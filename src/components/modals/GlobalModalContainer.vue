@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import VeBalRedirectModal from './VeBalRedirectModal.vue';
+import veNFTERedirectModal from './veNFTERedirectModal.vue';
 </script>
 
 <template>
   <teleport to="#modal">
-    <VeBalRedirectModal />
+    <veNFTERedirectModal />
   </teleport>
 </template>

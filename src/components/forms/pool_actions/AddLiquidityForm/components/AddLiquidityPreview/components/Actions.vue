@@ -12,7 +12,7 @@ import useEthers from '@/composables/useEthers';
 import { usePoolHelpers } from '@/composables/usePoolHelpers';
 import { dateTimeLabelFor } from '@/composables/useTime';
 import useTransactions from '@/composables/useTransactions';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import { Pool } from '@/services/pool/types';
 import { TransactionActionInfo } from '@/types/transactions';
 import { useJoinPool } from '@/providers/local/join-pool.provider';
@@ -44,7 +44,7 @@ const { t } = useI18n();
 const { fNum } = useNumbers();
 const { addTransaction } = useTransactions();
 const { txListener, getTxConfirmedAt } = useEthers();
-const { lockablePoolId } = useVeBal();
+const { lockablePoolId } = useveNFTE();
 const { isStakablePool } = usePoolStaking();
 const { isMismatchedNetwork } = useWeb3();
 const { poolWeightsLabel } = usePoolHelpers(toRef(props, 'pool'));
@@ -145,12 +145,12 @@ async function submit(): Promise<TransactionResponse> {
       <BalBtn
         v-if="lockablePoolId === pool.id"
         tag="router-link"
-        :to="{ name: 'get-vebal' }"
+        :to="{ name: 'get-veNFTE' }"
         color="gradient"
         block
         class="flex mt-2"
       >
-        <StarsIcon class="mr-2 h-5 text-orange-300" />{{ $t('lockToGetVeBAL') }}
+        <StarsIcon class="mr-2 h-5 text-orange-300" />{{ $t('lockToGetveNFTE') }}
       </BalBtn>
       <BalBtn
         v-else-if="isStakablePool"

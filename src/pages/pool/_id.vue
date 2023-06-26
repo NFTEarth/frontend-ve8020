@@ -19,7 +19,7 @@ import usePoolQuery from '@/composables/queries/usePoolQuery';
 import usePoolSnapshotsQuery from '@/composables/queries/usePoolSnapshotsQuery';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 import {
-  isVeBalPool,
+  isveNFTEPool,
   preMintedBptIndex,
   usePoolHelpers,
   tokensListExclBpt,
@@ -60,7 +60,7 @@ const { t } = useI18n();
 const { prices, priceQueryLoading } = useTokens();
 const { isWalletReady } = useWeb3();
 const { addAlert, removeAlert } = useAlerts();
-const _isVeBalPool = isVeBalPool(poolId);
+const _isveNFTEPool = isveNFTEPool(poolId);
 
 //#region pool query
 const poolQuery = usePoolQuery(poolId, undefined, undefined);
@@ -313,7 +313,7 @@ watch(
             @set-restake-visibility="setRestakeVisibility"
           />
           <PoolLockingCard
-            v-if="_isVeBalPool && !loadingPool && pool"
+            v-if="_isveNFTEPool && !loadingPool && pool"
             :pool="pool"
             class="pool-locking"
           />

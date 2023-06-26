@@ -142,7 +142,7 @@ function getTransactionSummaryMsg(): string {
   const message = gauges.reduce<string>((acc, gauge, i) => {
     return (
       acc +
-      t('veBAL.liquidityMining.popover.voteForGauge', [
+      t('veNFTE.liquidityMining.popover.voteForGauge', [
         fNum(bpsToPct(votes.value[gauge.address]), FNumFormats.percent),
         gauge.pool.symbol,
       ]) +
@@ -191,7 +191,7 @@ watchEffect(() => {
     <template #header>
       <div class="flex items-center">
         <h4>
-          {{ t('veBAL.liquidityMining.resubmit.modal.title') }}
+          {{ t('veNFTE.liquidityMining.resubmit.modal.title') }}
         </h4>
       </div>
     </template>
@@ -200,9 +200,9 @@ watchEffect(() => {
         v-if="hasMoreThan8VotingGauges"
         class="mb-4"
         type="warning"
-        :title="t('veBAL.liquidityMining.resubmit.modal.warning.title')"
+        :title="t('veNFTE.liquidityMining.resubmit.modal.warning.title')"
         :description="
-          t('veBAL.liquidityMining.resubmit.modal.warning.description')
+          t('veNFTE.liquidityMining.resubmit.modal.warning.description')
         "
       >
       </BalAlert>
@@ -229,7 +229,7 @@ watchEffect(() => {
         <div>
           {{
             t(
-              'veBAL.liquidityMining.resubmit.modal.otherPools',
+              'veNFTE.liquidityMining.resubmit.modal.otherPools',
               hiddenVotingGauges.length
             )
           }}
@@ -239,7 +239,7 @@ watchEffect(() => {
 
       <div :class="totalAllocationClass">
         <div class="p-4">
-          {{ t('veBAL.liquidityMining.resubmit.modal.total') }}
+          {{ t('veNFTE.liquidityMining.resubmit.modal.total') }}
         </div>
         <div class="p-4 border-l border-gray-200 dark:border-gray-900">
           {{ allGaugesTotalAllocation }}%
@@ -247,7 +247,7 @@ watchEffect(() => {
       </div>
 
       <div v-if="voteButtonDisabled" class="mt-3 text-sm text-red-500">
-        {{ t('veBAL.liquidityMining.resubmit.modal.exceeding') }}
+        {{ t('veNFTE.liquidityMining.resubmit.modal.exceeding') }}
       </div>
 
       <SubmitVoteBtn
@@ -256,13 +256,13 @@ watchEffect(() => {
         class="mt-4"
         :loadingLabel="
           voteState.state.value === State.IDLE
-            ? $t('veBAL.liquidityMining.popover.actions.vote.loadingLabel')
-            : $t('veBAL.liquidityMining.popover.actions.vote.confirming')
+            ? $t('veNFTE.liquidityMining.popover.actions.vote.loadingLabel')
+            : $t('veNFTE.liquidityMining.popover.actions.vote.confirming')
         "
         @click:close="emit('close')"
         @click:submit="submitVote"
       >
-        {{ t('veBAL.liquidityMining.resubmit.modal.confirm') }}
+        {{ t('veNFTE.liquidityMining.resubmit.modal.confirm') }}
       </SubmitVoteBtn>
     </div>
   </BalModal>

@@ -41,7 +41,7 @@ const lockAmountFiatValue = computed(() =>
   <div class="mb-6">
     <div>
       <p class="pb-2 font-semibold">
-        {{ $t('getVeBAL.lockForm.lockAmount.title') }}
+        {{ $t('getveNFTE.lockForm.lockAmount.title') }}
       </p>
     </div>
     <TokenInput

@@ -39,7 +39,7 @@ const emit = defineEmits<{
         block
         @click="emit('click:close')"
       >
-        {{ $t('getVeBAL.previewModal.returnToVeBalPage') }}
+        {{ $t('getveNFTE.previewModal.returnToveNFTEPage') }}
       </BalBtn>
     </template>
     <BalBtn

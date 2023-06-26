@@ -2,7 +2,7 @@ import NProgress from 'nprogress';
 import { useRouter } from 'vue-router';
 import { networkId } from './useNetwork';
 import { useSidebar } from './useSidebar';
-import useVeBal from './useVeBAL';
+import useveNFTE from './useveNFTE';
 
 // Progress bar config
 NProgress.configure({ showSpinner: false });
@@ -13,14 +13,14 @@ let delayedStartProgressBar;
  */
 export default function useNavigationGuards() {
   const router = useRouter();
-  const { setShowRedirectModal, isVeBalSupported } = useVeBal();
+  const { setShowRedirectModal, isveNFTESupported } = useveNFTE();
   const { setSidebarOpen } = useSidebar();
 
   router.beforeEach((to, from, next) => {
     localStorage.setItem('networkId', networkId.value.toString());
 
-    if (to.name == 'vebal') {
-      if (isVeBalSupported.value) next();
+    if (to.name == 'veNFTE') {
+      if (isveNFTESupported.value) next();
       else {
         setSidebarOpen(false);
         setShowRedirectModal(true);

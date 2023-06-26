@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import {
   fiatValueOf,
-  isVeBalPool,
+  isveNFTEPool,
   usePoolHelpers,
 } from '@/composables/usePoolHelpers';
 import { useTokens } from '@/providers/tokens.provider';
@@ -55,7 +55,7 @@ const bptBalance = computed((): string =>
 );
 
 const fiatValue = computed(() => {
-  if (isVeBalPool(props.pool.id)) return totalLockedValue.value;
+  if (isveNFTEPool(props.pool.id)) return totalLockedValue.value;
 
   return fiatValueOf(props.pool, bptBalance.value);
 });

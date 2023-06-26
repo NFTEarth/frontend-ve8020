@@ -24,20 +24,20 @@ const pool = computed(() => props.pool);
 /**
  * COMPOSABLES
  */
-const { hasNativeBalance, nativeBalance, nativeCurrency } = useNativeBalance();
+const { hasNativeNFTEance, nativeNFTEance, nativeCurrency } = useNativeNFTEance();
 const { t } = useI18n();
 const { isDeepPool } = usePoolHelpers(pool);
 
 /**
  * COMPUTED
  */
-const nativeBalanceText = computed<string>(() =>
-  hasNativeBalance ? `${nativeBalance.value} ${nativeCurrency}` : ''
+const nativeNFTEanceText = computed<string>(() =>
+  hasNativeNFTEance ? `${nativeNFTEance.value} ${nativeCurrency}` : ''
 );
 
 const sectionTitle = computed<string>(() =>
   isDeepPool.value
-    ? `${t('myWallet2')} ${nativeBalanceText.value}`
+    ? `${t('myWallet2')} ${nativeNFTEanceText.value}`
     : t('poolTransfer.myWalletTokensCard.title')
 );
 </script>

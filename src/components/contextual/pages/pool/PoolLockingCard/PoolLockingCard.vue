@@ -80,7 +80,7 @@ const fiatTotalExpiredLpTokens = computed(() =>
                     <BalIcon size="sm" name="check" />
                   </div>
                   <BalStack spacing="sm" align="center">
-                    <h6>{{ $t('locking.lockBptForVeBal') }}</h6>
+                    <h6>{{ $t('locking.lockBptForveNFTE') }}</h6>
                   </BalStack>
                 </BalStack>
                 <BalStack horizontal spacing="sm" align="center">
@@ -146,7 +146,7 @@ const fiatTotalExpiredLpTokens = computed(() =>
                 <BalStack horizontal spacing="sm" class="mt-2">
                   <BalLink
                     v-if="Number(bptBalance) > 0"
-                    href="/#/get-vebal?returnRoute=vebal"
+                    href="/#/get-veNFTE?returnRoute=veNFTE"
                   >
                     <BalBtn
                       :disabled="Number(bptBalance) === 0"
@@ -188,7 +188,7 @@ const fiatTotalExpiredLpTokens = computed(() =>
         v-if="showUnlockPreviewModal && lock && lockPool && lockPoolToken"
         :lockablePool="lockPool"
         :lockablePoolTokenInfo="lockPoolToken"
-        :veBalLockInfo="lock"
+        :veNFTELockInfo="lock"
         :totalLpTokens="totalExpiredLpTokens"
         :fiatTotalLpTokens="fiatTotalExpiredLpTokens"
         @close="showUnlockPreviewModal = false"

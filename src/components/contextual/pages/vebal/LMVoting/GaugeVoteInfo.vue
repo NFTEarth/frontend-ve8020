@@ -71,19 +71,19 @@ function formatVotesAsPercent(votes: string): string {
     </template>
     <div>
       <div class="mb-2 text-sm font-semibold">
-        {{ $t('veBAL.liquidityMining.votesTooltip.title') }}
+        {{ $t('veNFTE.liquidityMining.votesTooltip.title') }}
       </div>
       <div class="text-xs font-normal">
         <div class="mb-2">
           {{
-            $t('veBAL.liquidityMining.votesTooltip.thisPeriod', [
+            $t('veNFTE.liquidityMining.votesTooltip.thisPeriod', [
               votesThisPeriod,
             ])
           }}
         </div>
         <div class="mb-2">
           {{
-            $t('veBAL.liquidityMining.votesTooltip.nextPeriod', [
+            $t('veNFTE.liquidityMining.votesTooltip.nextPeriod', [
               votesNextPeriod,
             ])
           }}

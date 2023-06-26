@@ -12,7 +12,7 @@ import {
   MIN_LOCK_PERIOD_IN_DAYS,
 } from '@/components/forms/lock_actions/constants';
 import { toUtcTime } from '@/composables/useTime';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 
 import useLockState from './useLockState';
 
@@ -26,7 +26,7 @@ function getMaxLockEndDateTimestamp(date: number) {
   return startOfDay(timestamp).getTime();
 }
 
-export default function useLockEndDate(veBalLockInfo?: VeBalLockInfo) {
+export default function useLockEndDate(veNFTELockInfo?: veNFTELockInfo) {
   /**
    * STATE
    */
@@ -35,8 +35,8 @@ export default function useLockEndDate(veBalLockInfo?: VeBalLockInfo) {
   const minLockEndDateTimestamp = startOfDay(
     nextThursday(
       addDays(
-        veBalLockInfo?.hasExistingLock
-          ? veBalLockInfo.lockedEndDate
+        veNFTELockInfo?.hasExistingLock
+          ? veNFTELockInfo.lockedEndDate
           : todaysDate,
         MIN_LOCK_PERIOD_IN_DAYS
       )
@@ -66,7 +66,7 @@ export default function useLockEndDate(veBalLockInfo?: VeBalLockInfo) {
   );
 
   const isExtendedLockEndDate = computed(
-    () => veBalLockInfo?.hasExistingLock && isValidLockEndDate.value
+    () => veNFTELockInfo?.hasExistingLock && isValidLockEndDate.value
   );
 
   return {

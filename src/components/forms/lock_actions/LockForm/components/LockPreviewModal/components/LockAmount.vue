@@ -56,7 +56,7 @@ function formatWeightLabel(weight: PoolToken['weight']) {
       <div>
         <div class="font-semibold">
           {{
-            $t('getVeBAL.previewModal.lpTokens', [
+            $t('getveNFTE.previewModal.lpTokens', [
               fNum(totalLpTokens, FNumFormats.token),
             ])
           }}

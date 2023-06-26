@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, toRef } from 'vue';
 
-import { isVeBalPool, usePoolHelpers } from '@/composables/usePoolHelpers';
+import { isveNFTEPool, usePoolHelpers } from '@/composables/usePoolHelpers';
 import useNetwork from '@/composables/useNetwork';
 import { POOLS } from '@/constants/pools';
 import { Pool } from '@/services/pool/types';
@@ -36,7 +36,7 @@ const { networkSlug } = useNetwork();
 const stakablePoolIds = computed((): string[] =>
   POOLS.Stakable.VotingGaugePools.concat(POOLS.Stakable.AllowList)
 );
-const showVeBalLock = computed(() => isVeBalPool(props.pool.id));
+const showveNFTELock = computed(() => isveNFTEPool(props.pool.id));
 </script>
 
 <template>
@@ -67,10 +67,10 @@ const showVeBalLock = computed(() => isVeBalPool(props.pool.id));
       {{ $t('unstake') }}
     </BalBtn>
     <BalBtn
-      v-else-if="showVeBalLock"
+      v-else-if="showveNFTELock"
       tag="router-link"
       :to="{
-        name: 'get-vebal',
+        name: 'get-veNFTE',
         query: { networkSlug, returnRoute: $route.name },
       }"
       color="gradient-pink-yellow"

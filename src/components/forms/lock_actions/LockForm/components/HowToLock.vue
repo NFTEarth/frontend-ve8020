@@ -30,9 +30,9 @@ const { networkSlug } = useNetwork();
  * COMPUTED
  */
 const steps = computed(() => [
-  t('getVeBAL.howToLock.steps.lock', [props.lockablePoolTokenInfo.symbol]),
-  t('getVeBAL.howToLock.earn.boost'),
-  t('getVeBAL.howToLock.earn.voting'),
+  t('getveNFTE.howToLock.steps.lock', [props.lockablePoolTokenInfo.symbol]),
+  t('getveNFTE.howToLock.earn.boost'),
+  t('getveNFTE.howToLock.earn.voting'),
 ]);
 </script>
 
@@ -42,7 +42,7 @@ const steps = computed(() => [
     :showSectionBorder="false"
     :sections="[
       {
-        title: $t('getVeBAL.howToLock.title'),
+        title: $t('getveNFTE.howToLock.title'),
         id: 'how-to-lock',
         handle: 'how-to-lock-handle',
       },
@@ -53,7 +53,7 @@ const steps = computed(() => [
         class="group flex justify-between items-center p-4 w-full rounded-xl"
       >
         <h6 class="group-hover:text-blue-500 transition-colors">
-          {{ $t('getVeBAL.howToLock.title') }}
+          {{ $t('getveNFTE.howToLock.title') }}
         </h6>
         <BalIcon
           name="chevron-down"
@@ -66,7 +66,7 @@ const steps = computed(() => [
         <div class="text-secondary">
           <ol class="text-sm steps">
             <li>
-              {{ $t('getVeBAL.howToLock.steps.investPart1') }}
+              {{ $t('getveNFTE.howToLock.steps.investPart1') }}
               <BalLink
                 tag="router-link"
                 :to="{
@@ -77,7 +77,7 @@ const steps = computed(() => [
               >
                 {{ lockablePoolTokenInfo.symbol }}
               </BalLink>
-              {{ $t('getVeBAL.howToLock.steps.investPart2') }}
+              {{ $t('getveNFTE.howToLock.steps.investPart2') }}
             </li>
             <li v-for="(step, i) in steps" :key="i" v-html="step" />
           </ol>

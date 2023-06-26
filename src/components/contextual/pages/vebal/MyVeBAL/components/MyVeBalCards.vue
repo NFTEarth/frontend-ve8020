@@ -7,10 +7,10 @@ import { PRETTY_DATE_FORMAT } from '@/components/forms/lock_actions/constants';
 import UnlockPreviewModal from '@/components/forms/lock_actions/UnlockForm/components/UnlockPreviewModal/UnlockPreviewModal.vue';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { useTokens } from '@/providers/tokens.provider';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import useNetwork from '@/composables/useNetwork';
 import { bnum } from '@/lib/utils';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { Pool } from '@/services/pool/types';
 import useWeb3 from '@/services/web3/useWeb3';
 import { TokenInfo } from '@/types/TokenList';
@@ -21,7 +21,7 @@ import { TokenInfo } from '@/types/TokenList';
 type Props = {
   lockablePool: Pool;
   lockablePoolTokenInfo: TokenInfo;
-  veBalLockInfo?: VeBalLockInfo | null;
+  veNFTELockInfo?: veNFTELockInfo | null;
   totalLockedValue: string;
 };
 
@@ -29,7 +29,7 @@ type Props = {
  * PROPS
  */
 const props = withDefaults(defineProps<Props>(), {
-  veBalLockInfo: null,
+  veNFTELockInfo: null,
 });
 
 /**
@@ -42,7 +42,7 @@ const showUnlockPreviewModal = ref(false);
  */
 const { balanceFor } = useTokens();
 const { fNum } = useNumbers();
-const { veBalBalance, lockablePoolId } = useVeBal();
+const { veNFTEBalance, lockablePoolId } = useveNFTE();
 const { t } = useI18n();
 const { isWalletReady } = useWeb3();
 const { networkSlug } = useNetwork();
@@ -61,15 +61,15 @@ const fiatTotal = computed(() =>
 );
 
 const lockedUntil = computed(() => {
-  if (props.veBalLockInfo?.hasExistingLock && !props.veBalLockInfo?.isExpired) {
-    return format(props.veBalLockInfo.lockedEndDate, PRETTY_DATE_FORMAT);
+  if (props.veNFTELockInfo?.hasExistingLock && !props.veNFTELockInfo?.isExpired) {
+    return format(props.veNFTELockInfo.lockedEndDate, PRETTY_DATE_FORMAT);
   }
 
   return '—';
 });
 
 const totalExpiredLpTokens = computed(() =>
-  props.veBalLockInfo?.isExpired ? props.veBalLockInfo.lockedAmount : '0'
+  props.veNFTELockInfo?.isExpired ? props.veNFTELockInfo.lockedAmount : '0'
 );
 
 const fiatTotalExpiredLpTokens = computed(() =>
@@ -80,13 +80,13 @@ const fiatTotalExpiredLpTokens = computed(() =>
 );
 
 const cards = computed(() => {
-  const hasExistingLock = props.veBalLockInfo?.hasExistingLock;
-  const isExpired = props.veBalLockInfo?.isExpired;
+  const hasExistingLock = props.veNFTELockInfo?.hasExistingLock;
+  const isExpired = props.veNFTELockInfo?.isExpired;
 
   return [
     {
       id: 'myLpToken',
-      label: t('veBAL.myVeBAL.cards.myLpToken.label'),
+      label: t('veNFTE.myveNFTE.cards.myLpToken.label'),
       value: isWalletReady.value
         ? fNum(fiatTotal.value, FNumFormats.fiat)
         : '—',
@@ -97,44 +97,44 @@ const cards = computed(() => {
       plusIconTo: {
         name: 'add-liquidity',
         params: { id: lockablePoolId.value, networkSlug },
-        query: { returnRoute: 'vebal' },
+        query: { returnRoute: 'veNFTE' },
       },
     },
     {
       id: 'myLockedLpToken',
-      label: t('veBAL.myVeBAL.cards.myLockedLpToken.label'),
+      label: t('veNFTE.myveNFTE.cards.myLockedLpToken.label'),
       value: isWalletReady.value
         ? fNum(props.totalLockedValue, FNumFormats.fiat)
         : '—',
       secondaryText: isWalletReady.value
-        ? fNum(props.veBalLockInfo?.lockedAmount ?? '0', FNumFormats.token)
+        ? fNum(props.veNFTELockInfo?.lockedAmount ?? '0', FNumFormats.token)
         : '—',
       showPlusIcon: isWalletReady.value && !isExpired ? true : false,
-      plusIconTo: { name: 'get-vebal', query: { returnRoute: 'vebal' } },
+      plusIconTo: { name: 'get-veNFTE', query: { returnRoute: 'veNFTE' } },
       showUnlockIcon: isExpired ? true : false,
     },
     {
       id: 'lockedEndDate',
-      label: t('veBAL.myVeBAL.cards.lockedEndDate.label'),
+      label: t('veNFTE.myveNFTE.cards.lockedEndDate.label'),
       value: lockedUntil.value,
       secondaryText:
         hasExistingLock && !isExpired
-          ? t('veBAL.myVeBAL.cards.lockedEndDate.secondaryText', [
+          ? t('veNFTE.myveNFTE.cards.lockedEndDate.secondaryText', [
               differenceInDays(new Date(lockedUntil.value), new Date()),
             ])
           : '-',
       showPlusIcon: hasExistingLock && !isExpired ? true : false,
-      plusIconTo: { name: 'get-vebal', query: { returnRoute: 'vebal' } },
+      plusIconTo: { name: 'get-veNFTE', query: { returnRoute: 'veNFTE' } },
     },
     {
-      id: 'myVeBAL',
-      label: t('veBAL.myVeBAL.cards.myVeBAL.label'),
+      id: 'myveNFTE',
+      label: t('veNFTE.myveNFTE.cards.myveNFTE.label'),
       secondaryText:
-        props.veBalLockInfo && hasExistingLock && !isExpired
-          ? t('veBAL.myVeBAL.cards.myVeBAL.secondaryText', [
+        props.veNFTELockInfo && hasExistingLock && !isExpired
+          ? t('veNFTE.myveNFTE.cards.myveNFTE.secondaryText', [
               fNum(
-                bnum(veBalBalance.value)
-                  .div(props.veBalLockInfo.totalSupply)
+                bnum(veNFTEBalance.value)
+                  .div(props.veNFTELockInfo.totalSupply)
                   .toString(),
                 {
                   style: 'percent',
@@ -145,7 +145,7 @@ const cards = computed(() => {
           : '-',
       showPlusIcon: false,
       value: hasExistingLock
-        ? fNum(veBalBalance.value, FNumFormats.token)
+        ? fNum(veNFTEBalance.value, FNumFormats.token)
         : '—',
     },
   ];
@@ -166,7 +166,7 @@ const cards = computed(() => {
         >
         <BalTooltip
           v-if="bnum(totalExpiredLpTokens).gt(0)"
-          :text="$t('veBAL.myVeBAL.cards.myExpiredLockTooltip')"
+          :text="$t('veNFTE.myveNFTE.cards.myExpiredLockTooltip')"
           iconSize="sm"
           :iconName="'alert-triangle'"
           :iconClass="'text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors'"
@@ -204,10 +204,10 @@ const cards = computed(() => {
   </BalCard>
   <teleport to="#modal">
     <UnlockPreviewModal
-      v-if="showUnlockPreviewModal && veBalLockInfo"
+      v-if="showUnlockPreviewModal && veNFTELockInfo"
       :lockablePool="lockablePool"
       :lockablePoolTokenInfo="lockablePoolTokenInfo"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
       :totalLpTokens="totalExpiredLpTokens"
       :fiatTotalLpTokens="fiatTotalExpiredLpTokens"
       @close="showUnlockPreviewModal = false"

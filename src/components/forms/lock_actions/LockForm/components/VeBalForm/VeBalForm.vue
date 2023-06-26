@@ -3,9 +3,9 @@ import { computed, ref, toRef } from 'vue';
 
 import { LockType } from '@/components/forms/lock_actions/LockForm/types';
 import { useTokens } from '@/providers/tokens.provider';
-import { expectedVeBal } from '@/composables/useVeBAL';
+import { expectedveNFTE } from '@/composables/useveNFTE';
 import { bnum } from '@/lib/utils';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { configService } from '@/services/config/config.service';
 import { Pool } from '@/services/pool/types';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -25,7 +25,7 @@ import Summary from './components/Summary.vue';
 type Props = {
   lockablePool: Pool;
   lockablePoolTokenInfo: TokenInfo;
-  veBalLockInfo?: VeBalLockInfo;
+  veNFTELockInfo?: veNFTELockInfo;
 };
 
 /**
@@ -43,14 +43,14 @@ const { isWalletReady, startConnectWithInjectedProvider, isMismatchedNetwork } =
   useWeb3();
 
 const { isValidLockAmount, isIncreasedLockAmount, totalLpTokens } =
-  useLockAmount(toRef(props, 'veBalLockInfo'));
+  useLockAmount(toRef(props, 'veNFTELockInfo'));
 
 const {
   minLockEndDateTimestamp,
   maxLockEndDateTimestamp,
   isValidLockEndDate,
   isExtendedLockEndDate,
-} = useLockEndDate(props.veBalLockInfo);
+} = useLockEndDate(props.veNFTELockInfo);
 
 /**
  * COMPOSABLES
@@ -69,7 +69,7 @@ const submissionDisabled = computed(() => {
     return true;
   }
 
-  if (props.veBalLockInfo?.hasExistingLock && !props.veBalLockInfo?.isExpired) {
+  if (props.veNFTELockInfo?.hasExistingLock && !props.veNFTELockInfo?.isExpired) {
     return !isIncreasedLockAmount.value && !isExtendedLockEndDate.value;
   }
 
@@ -80,16 +80,16 @@ const submissionDisabled = computed(() => {
   );
 });
 
-const expectedVeBalAmount = computed(() => {
+const expectedveNFTEAmount = computed(() => {
   if (submissionDisabled.value) {
     return '0';
   }
 
-  return expectedVeBal(totalLpTokens.value, lockEndDate.value);
+  return expectedveNFTE(totalLpTokens.value, lockEndDate.value);
 });
 
 const lockType = computed(() => {
-  if (props.veBalLockInfo?.hasExistingLock && !props.veBalLockInfo?.isExpired) {
+  if (props.veNFTELockInfo?.hasExistingLock && !props.veNFTELockInfo?.isExpired) {
     if (isIncreasedLockAmount.value && isExtendedLockEndDate.value) {
       return [LockType.INCREASE_LOCK, LockType.EXTEND_LOCK];
     }
@@ -125,7 +125,7 @@ function handleShowPreviewModal() {
         </div>
         <div class="flex justify-between items-center">
           <h4>
-            {{ $t('getVeBAL.lockForm.title') }}
+            {{ $t('getveNFTE.lockForm.title') }}
           </h4>
         </div>
       </div>
@@ -139,10 +139,10 @@ function handleShowPreviewModal() {
     <LockEndDate
       :minLockEndDateTimestamp="minLockEndDateTimestamp"
       :maxLockEndDateTimestamp="maxLockEndDateTimestamp"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
     />
 
-    <Summary :expectedVeBalAmount="expectedVeBalAmount" />
+    <Summary :expectedveNFTEAmount="expectedveNFTEAmount" />
 
     <div class="mt-6">
       <BalBtn
@@ -165,13 +165,13 @@ function handleShowPreviewModal() {
   </BalCard>
   <teleport to="#modal">
     <LockPreviewModal
-      v-if="showPreviewModal && veBalLockInfo"
+      v-if="showPreviewModal && veNFTELockInfo"
       :lockablePool="lockablePool"
       :lockablePoolTokenInfo="lockablePoolTokenInfo"
       :lockAmount="lockAmount"
       :lockEndDate="lockEndDate"
       :lockType="lockType"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
       :totalLpTokens="totalLpTokens"
       @close="handleClosePreviewModal"
     />

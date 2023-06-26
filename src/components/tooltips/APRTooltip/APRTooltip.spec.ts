@@ -53,7 +53,7 @@ describe('APRTooltip', () => {
   });
 
   describe('Protocol APR', () => {
-    it('Should show veBAL locking rewards', () => {
+    it('Should show veNFTE locking rewards', () => {
       const aprBreakdown: AprBreakdown = {
         ...EmptyAprBreakdownMock,
         swapFees: 78,
@@ -63,7 +63,7 @@ describe('APRTooltip', () => {
       };
       const poolMock: Pool = {
         ...EmptyPoolMock,
-        id: POOLS.IdsMap?.veBAL || '',
+        id: POOLS.IdsMap?.veNFTE || '',
       };
       const { getByTestId } = renderComponent(APRTooltip, {
         props: {
@@ -74,8 +74,8 @@ describe('APRTooltip', () => {
       expect(getByTestId('total-apr').textContent).toBe(
         'Total APR0.78% - 1.95%'
       );
-      expect(getByTestId('vebal-apr').textContent).toContain(
-        '1.17% Max locking/veBAL APR'
+      expect(getByTestId('veNFTE-apr').textContent).toContain(
+        '1.17% Max locking/veNFTE APR'
       );
     });
   });
@@ -394,14 +394,14 @@ describe('APRTooltip', () => {
       ).toBe('14.18% Max BAL APR');
     });
 
-    it('Should show veBAL staking rewards as a line item for pools that contain the 80/20 veBAL pool', () => {
-      const veBalPoolAddress = POOLS.IdsMap?.veBAL?.slice(0, 42) || '';
+    it('Should show veNFTE staking rewards as a line item for pools that contain the 80/20 veNFTE pool', () => {
+      const veNFTEPoolAddress = POOLS.IdsMap?.veNFTE?.slice(0, 42) || '';
       const aprBreakdown: AprBreakdown = {
         ...EmptyAprBreakdownMock,
         tokenAprs: {
           total: 17,
           breakdown: {
-            [veBalPoolAddress]: 17,
+            [veNFTEPoolAddress]: 17,
           },
         },
         min: 17,
@@ -414,7 +414,7 @@ describe('APRTooltip', () => {
         },
       });
       expect(getByTestId('total-apr').textContent).toBe('Total APR0.17%');
-      expect(getByTestId('yield-apr').textContent).toBe('0.17% veBAL APR');
+      expect(getByTestId('yield-apr').textContent).toBe('0.17% veNFTE APR');
     });
   });
 

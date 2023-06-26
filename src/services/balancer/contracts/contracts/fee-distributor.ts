@@ -110,7 +110,7 @@ export class FeeDistributor {
   }
 
   /**
-   * @summary Get total veBAL supply at epoch.
+   * @summary Get total veNFTE supply at epoch.
    * @param {number} timestamp unix timestamp of epoch to check, has to be exact
    * epoch timestamp
    */

@@ -17,19 +17,19 @@ const router = useRouter();
  * COMPUTED
  */
 const benefits = computed(() => [
-  t('veBAL.hero.benefits.boost'),
-  t('veBAL.hero.benefits.vote'),
-  t('veBAL.hero.benefits.earn'),
+  t('veNFTE.hero.benefits.boost'),
+  t('veNFTE.hero.benefits.vote'),
+  t('veNFTE.hero.benefits.earn'),
 ]);
 
 /**
  * METHODS
  */
-function navigateToGetVeBAL() {
+function navigateToGetveNFTE() {
   router.push({
-    name: 'get-vebal',
+    name: 'get-veNFTE',
     query: {
-      returnRoute: 'vebal',
+      returnRoute: 'veNFTE',
     },
   });
 }
@@ -41,9 +41,9 @@ function navigateToGetVeBAL() {
       <div
         class="py-8 lg:py-4 px-4 lg:px-8 2xl:px-0 xl:pt-0 max-w-md hero-text"
       >
-        <p class="font-medium eyebrow">veBAL</p>
+        <p class="font-medium eyebrow">veNFTE</p>
         <h1 class="mb-5 text-white title">
-          {{ $t('veBAL.hero.title') }}
+          {{ $t('veNFTE.hero.title') }}
         </h1>
         <ul>
           <li
@@ -55,19 +55,19 @@ function navigateToGetVeBAL() {
           </li>
         </ul>
         <div class="flex mt-6">
-          <BalBtn class="mr-3 hero-btn btn-gold" @click="navigateToGetVeBAL">
-            {{ $t('veBAL.hero.buttons.getVeBAL') }}
+          <BalBtn class="mr-3 hero-btn btn-gold" @click="navigateToGetveNFTE">
+            {{ $t('veNFTE.hero.buttons.getveNFTE') }}
           </BalBtn>
           <BalBtn
             tag="a"
-            href="https://docs.balancer.fi/concepts/governance/veBAL/"
+            href="https://docs.balancer.fi/concepts/governance/veNFTE/"
             target="_blank"
             rel="noreferrer"
             color="white"
             class="hero-btn"
             outline
           >
-            {{ $t('veBAL.hero.buttons.learnMore') }}
+            {{ $t('veNFTE.hero.buttons.learnMore') }}
             <BalIcon
               name="arrow-up-right"
               size="sm"
@@ -91,10 +91,10 @@ function navigateToGetVeBAL() {
             <p
               class="inline mr-1 text-sm lg:text-base tracking-tighter lg:tracking-normal"
             >
-              {{ $t('veBAL.hero.tokens.balWETH') }}
+              {{ $t('veNFTE.hero.tokens.balWETH') }}
             </p>
             <BalTooltip iconSize="xs" textAlign="left" class="mt-1 font-medium">
-              {{ $t('veBAL.hero.tokenInfo.balWETH') }}
+              {{ $t('veNFTE.hero.tokenInfo.balWETH') }}
             </BalTooltip>
           </div>
         </div>
@@ -112,10 +112,10 @@ function navigateToGetVeBAL() {
             <p
               class="inline mr-1 text-sm lg:text-base tracking-tighter lg:tracking-normal"
             >
-              {{ $t('veBAL.hero.tokens.lpToken') }}
+              {{ $t('veNFTE.hero.tokens.lpToken') }}
             </p>
             <BalTooltip iconSize="xs" textAlign="left" class="mt-1">
-              {{ $t('veBAL.hero.tokenInfo.lpToken') }}
+              {{ $t('veNFTE.hero.tokenInfo.lpToken') }}
             </BalTooltip>
           </div>
         </div>
@@ -126,17 +126,17 @@ function navigateToGetVeBAL() {
               width="330"
               height="377"
               :src="coin3"
-              alt="veBAL token"
+              alt="veNFTE token"
             />
           </div>
           <div class="font-semibold caption">
             <p
               class="inline mr-1 text-sm lg:text-base tracking-tighter lg:tracking-normal"
             >
-              {{ $t('veBAL.hero.tokens.veBAL') }}
+              {{ $t('veNFTE.hero.tokens.veNFTE') }}
             </p>
             <BalTooltip iconSize="xs" textAlign="left" class="mt-1">
-              {{ $t('veBAL.hero.tokenInfo.veBAL') }}
+              {{ $t('veNFTE.hero.tokenInfo.veNFTE') }}
             </BalTooltip>
           </div>
         </div>
@@ -172,7 +172,7 @@ function navigateToGetVeBAL() {
 .hero-container::after {
   content: ' ';
   background: linear-gradient(45deg, rgb(0 0 0 / 100%), rgb(0 0 0 / 50%)),
-    url('/images/backgrounds/vebal-hero-noise.svg');
+    url('/images/backgrounds/veNFTE-hero-noise.svg');
 
   @apply block absolute left-0 top-0 w-full h-full bg-no-repeat bg-cover opacity-20 z-0;
 

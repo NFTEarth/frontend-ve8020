@@ -3,7 +3,7 @@ import { provideUserData } from '@/providers/user-data.provider';
 import { poolsStoreService } from '@/services/pool/pools-store.service';
 import { Pool } from '@/services/pool/types';
 import { mountComposable, provideFakePoolStaking } from '@tests/mount-helpers';
-import { aPool, aVeBalPool } from '@tests/unit/builders/pool.builders';
+import { aPool, aveNFTEPool } from '@tests/unit/builders/pool.builders';
 import { noop } from 'lodash';
 import { ref } from 'vue';
 import waitForExpect from 'wait-for-expect';
@@ -51,16 +51,16 @@ it('calculates user pool percentage label when user has a very small share', () 
   expect(result.userPoolPercentageLabel.value.toString()).toBe('< 0.0001%');
 });
 
-it('includes locked shares given a veBal pool', async () => {
-  const veBalPool = aVeBalPool({
+it('includes locked shares given a veNFTE pool', async () => {
+  const veNFTEPool = aveNFTEPool({
     totalLiquidity: '100',
     totalShares: '100',
   });
 
-  poolsStoreService.setPools([veBalPool]);
+  poolsStoreService.setPools([veNFTEPool]);
 
   const { result } = mountComposable(
-    () => useUserPoolPercentage(ref(veBalPool)),
+    () => useUserPoolPercentage(ref(veNFTEPool)),
     {
       extraProvidersCb: () => {
         provideUserData();

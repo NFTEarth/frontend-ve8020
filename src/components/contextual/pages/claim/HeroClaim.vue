@@ -69,7 +69,7 @@ defineProps<Props>();
               width="144"
               height="144"
               class="tip-icon"
-              src="@/assets/images/icons/claims-header/vebal.svg"
+              src="@/assets/images/icons/claims-header/veNFTE.svg"
             />
             <p class="font-semibold tip-label text-shadow">
               {{ $t('claimHero.tipLabel.boost') }}

@@ -5,14 +5,14 @@ import { formatUnits } from '@ethersproject/units';
 import { parseUnits } from '@ethersproject/units';
 
 import { toJsTimestamp, toUtcTime } from '@/composables/useTime';
-import veBalAbi from '@/lib/abi/veBalAbi.json';
+import veNFTEAbi from '@/lib/abi/veNFTEAbi.json';
 
 import Service from '../balancer-contracts.service';
 import { TransactionBuilder } from '@/services/web3/transactions/transaction.builder';
 import { ContractInterface } from 'ethers';
 import { getOldMulticaller } from '@/dependencies/OldMulticaller';
 
-export type VeBalLockInfo = {
+export type veNFTELockInfo = {
   lockedEndDate: number;
   lockedAmount: string;
   totalSupply: string;
@@ -21,13 +21,13 @@ export type VeBalLockInfo = {
   isExpired: boolean;
 };
 
-export type VeBalLockInfoResult = {
+export type veNFTELockInfoResult = {
   locked: BigNumber[];
   epoch: BigNumber;
   totalSupply: BigNumber;
 };
 
-export default class VeBAL {
+export default class veNFTE {
   service: Service;
 
   constructor(service: Service) {
@@ -38,24 +38,24 @@ export default class VeBAL {
     return (toUtcTime(new Date(date)) / 1000).toString();
   }
 
-  public async getLockInfo(account: string): Promise<VeBalLockInfo> {
+  public async getLockInfo(account: string): Promise<veNFTELockInfo> {
     const Multicaller = getOldMulticaller();
-    const veBalMulticaller = new Multicaller(
+    const veNFTEMulticaller = new Multicaller(
       this.service.config.key,
       this.service.provider,
-      veBalAbi
+      veNFTEAbi
     );
 
-    veBalMulticaller.call('locked', this.address, 'locked', [account]);
-    veBalMulticaller.call('epoch', this.address, 'epoch');
-    veBalMulticaller.call('totalSupply', this.address, 'totalSupply()');
+    veNFTEMulticaller.call('locked', this.address, 'locked', [account]);
+    veNFTEMulticaller.call('epoch', this.address, 'epoch');
+    veNFTEMulticaller.call('totalSupply', this.address, 'totalSupply()');
 
-    const result = await veBalMulticaller.execute<VeBalLockInfoResult>();
+    const result = await veNFTEMulticaller.execute<veNFTELockInfoResult>();
 
     return this.formatLockInfo(result);
   }
 
-  public formatLockInfo(lockInfo: VeBalLockInfoResult) {
+  public formatLockInfo(lockInfo: veNFTELockInfoResult) {
     const [lockedAmount, lockedEndDate] = lockInfo.locked;
 
     const hasExistingLock = lockedAmount.gt(0);
@@ -80,7 +80,7 @@ export default class VeBAL {
     const txBuilder = new TransactionBuilder(userProvider.getSigner());
     return await txBuilder.contract.sendTransaction({
       contractAddress: this.address,
-      abi: veBalAbi as ContractInterface,
+      abi: veNFTEAbi as ContractInterface,
       action: 'create_lock',
       params: [parseUnits(lockAmount, 18), this.parseDate(lockEndDate)],
     });
@@ -93,7 +93,7 @@ export default class VeBAL {
     const txBuilder = new TransactionBuilder(userProvider.getSigner());
     return await txBuilder.contract.sendTransaction({
       contractAddress: this.address,
-      abi: veBalAbi as ContractInterface,
+      abi: veNFTEAbi as ContractInterface,
       action: 'increase_amount',
       params: [parseUnits(lockAmount, 18)],
     });
@@ -106,7 +106,7 @@ export default class VeBAL {
     const txBuilder = new TransactionBuilder(userProvider.getSigner());
     return await txBuilder.contract.sendTransaction({
       contractAddress: this.address,
-      abi: veBalAbi as ContractInterface,
+      abi: veNFTEAbi as ContractInterface,
       action: 'increase_unlock_time',
       params: [this.parseDate(lockEndDate)],
     });
@@ -118,12 +118,12 @@ export default class VeBAL {
     const txBuilder = new TransactionBuilder(userProvider.getSigner());
     return await txBuilder.contract.sendTransaction({
       contractAddress: this.address,
-      abi: veBalAbi as ContractInterface,
+      abi: veNFTEAbi as ContractInterface,
       action: 'withdraw',
     });
   }
 
   public get address(): string {
-    return this.service.config.addresses.veBAL;
+    return this.service.config.addresses.veNFTE;
   }
 }

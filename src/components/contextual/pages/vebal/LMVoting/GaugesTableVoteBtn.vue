@@ -39,8 +39,8 @@ const disabled = computed(() => {
   >
     {{
       showRemoveVotes
-        ? $t('veBAL.liquidityMining.table.remove')
-        : $t('veBAL.liquidityMining.table.vote')
+        ? $t('veNFTE.liquidityMining.table.remove')
+        : $t('veNFTE.liquidityMining.table.vote')
     }}
   </BalBtn>
 </template>

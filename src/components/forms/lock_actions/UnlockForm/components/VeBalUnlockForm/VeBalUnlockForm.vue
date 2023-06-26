@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { bnum } from '@/lib/utils';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { configService } from '@/services/config/config.service';
 import { Pool } from '@/services/pool/types';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -17,7 +17,7 @@ import LockedAmount from './components/LockedAmount.vue';
 type Props = {
   lockablePool: Pool;
   lockablePoolTokenInfo: TokenInfo;
-  veBalLockInfo: VeBalLockInfo;
+  veNFTELockInfo: veNFTELockInfo;
 };
 
 /**
@@ -40,7 +40,7 @@ const { isWalletReady, startConnectWithInjectedProvider, isMismatchedNetwork } =
  * COMPUTED
  */
 const totalLpTokens = computed(() =>
-  props.veBalLockInfo?.isExpired ? props.veBalLockInfo.lockedAmount : '0'
+  props.veNFTELockInfo?.isExpired ? props.veNFTELockInfo.lockedAmount : '0'
 );
 
 const fiatTotalLpTokens = computed(() =>
@@ -68,7 +68,7 @@ const submissionDisabled = computed(() => {
         </div>
         <div class="flex justify-between items-center">
           <h4>
-            {{ $t('unlockVeBAL.unlockForm.title') }}
+            {{ $t('unlockveNFTE.unlockForm.title') }}
           </h4>
         </div>
       </div>
@@ -105,7 +105,7 @@ const submissionDisabled = computed(() => {
       v-if="showPreviewModal"
       :lockablePool="lockablePool"
       :lockablePoolTokenInfo="lockablePoolTokenInfo"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
       :totalLpTokens="totalLpTokens"
       :fiatTotalLpTokens="fiatTotalLpTokens"
       @close="showPreviewModal = false"

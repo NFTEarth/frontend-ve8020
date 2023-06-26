@@ -5,17 +5,17 @@ import useNumbers from '@/composables/useNumbers';
 import { useTokens } from '@/providers/tokens.provider';
 import { usePoolStaking } from '@/providers/local/pool-staking.provider';
 import { useLock } from './useLock';
-import { isVeBalPool } from './usePoolHelpers';
+import { isveNFTEPool } from './usePoolHelpers';
 
 export function useUserPoolPercentage(pool: Ref<Pool>) {
   const { balanceFor } = useTokens();
   const { stakedShares } = usePoolStaking();
 
-  const isVeBal = computed(() => isVeBalPool(pool.value.id));
+  const isveNFTE = computed(() => isveNFTEPool(pool.value.id));
 
   const { totalLockedShares } = useLock({
-    // Avoid lock queries when pool is not veBAL:
-    enabled: isVeBal.value,
+    // Avoid lock queries when pool is not veNFTE:
+    enabled: isveNFTE.value,
   });
   const { fNum } = useNumbers();
 
@@ -23,7 +23,7 @@ export function useUserPoolPercentage(pool: Ref<Pool>) {
     let bptBalance = bnum(balanceFor(pool.value.address)).plus(
       stakedShares.value
     );
-    if (isVeBal.value && totalLockedShares.value) {
+    if (isveNFTE.value && totalLockedShares.value) {
       bptBalance = bptBalance.plus(totalLockedShares.value);
     }
     return bptBalance.div(bnum(pool.value.totalShares)).multipliedBy(100);

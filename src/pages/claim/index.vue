@@ -282,7 +282,7 @@ onBeforeMount(async () => {
               iconClass="text-secondary"
               width="60"
             >
-              {{ $t('claimPage.tips.ProtocolAndVebal') }}
+              {{ $t('claimPage.tips.ProtocolAndveNFTE') }}
             </BalTooltip>
             <ProtocolRewardsTable
               :rewardsData="protocolRewardsData"

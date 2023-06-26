@@ -2,8 +2,8 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import useVeBalLockInfoQuery from '@/composables/queries/useVeBalLockInfoQuery';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import useveNFTELockInfoQuery from '@/composables/queries/useveNFTELockInfoQuery';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { Pool } from '@/services/pool/types';
 import { TokenInfo } from '@/types/TokenList';
 
@@ -17,7 +17,7 @@ import UnlockSummary from './components/UnlockSummary.vue';
 type Props = {
   lockablePool: Pool;
   lockablePoolTokenInfo: TokenInfo;
-  veBalLockInfo: VeBalLockInfo;
+  veNFTELockInfo: veNFTELockInfo;
   totalLpTokens: string;
   fiatTotalLpTokens: string;
 };
@@ -34,7 +34,7 @@ const emit = defineEmits<{
 /**
  * COMPOSABLES
  */
-const { refetch: refetchLockInfo } = useVeBalLockInfoQuery();
+const { refetch: refetchLockInfo } = useveNFTELockInfoQuery();
 
 /**
  * STATE
@@ -42,7 +42,7 @@ const { refetch: refetchLockInfo } = useVeBalLockInfoQuery();
 const unlockConfirmed = ref(false);
 const lockablePool = ref(props.lockablePool);
 const lockablePoolTokenInfo = ref(props.lockablePoolTokenInfo);
-const veBalLockInfo = ref(props.veBalLockInfo);
+const veNFTELockInfo = ref(props.veNFTELockInfo);
 const totalLpTokens = ref(props.totalLpTokens);
 const fiatTotalLpTokens = ref(props.fiatTotalLpTokens);
 
@@ -56,8 +56,8 @@ const { t } = useI18n();
  */
 const title = computed(() => {
   return unlockConfirmed.value
-    ? t(`unlockVeBAL.previewModal.titles.unlock.confirmed`)
-    : t(`unlockVeBAL.previewModal.titles.unlock.default`);
+    ? t(`unlockveNFTE.previewModal.titles.unlock.confirmed`)
+    : t(`unlockveNFTE.previewModal.titles.unlock.default`);
 });
 
 /**
@@ -95,14 +95,14 @@ function handleSuccess() {
 
     <UnlockSummary
       :fiatTotalLpTokens="fiatTotalLpTokens"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
     />
 
     <UnlockActions
       :lockablePool="lockablePool"
       :lockablePoolTokenInfo="lockablePoolTokenInfo"
       :totalLpTokens="totalLpTokens"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
       class="mt-4"
       @success="handleSuccess"
       @close="handleClose"

@@ -1,12 +1,12 @@
 import { computed, Ref } from 'vue';
 
 import { bnum } from '@/lib/utils';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 
 import useLockState from './useLockState';
 
 export default function useLockAmount(
-  veBalLockInfo?: Ref<VeBalLockInfo> | Ref<undefined>
+  veNFTELockInfo?: Ref<veNFTELockInfo> | Ref<undefined>
 ) {
   /**
    * COMPOSABLES
@@ -19,12 +19,12 @@ export default function useLockAmount(
   const isValidLockAmount = computed(() => bnum(lockAmount.value || '0').gt(0));
 
   const isIncreasedLockAmount = computed(
-    () => veBalLockInfo?.value?.hasExistingLock && isValidLockAmount.value
+    () => veNFTELockInfo?.value?.hasExistingLock && isValidLockAmount.value
   );
 
   const totalLpTokens = computed(() => {
-    return veBalLockInfo?.value?.hasExistingLock
-      ? bnum(veBalLockInfo.value.lockedAmount)
+    return veNFTELockInfo?.value?.hasExistingLock
+      ? bnum(veNFTELockInfo.value.lockedAmount)
           .plus(lockAmount.value || '0')
           .toString()
       : lockAmount.value || '0';

@@ -10,15 +10,15 @@ import useEthers from '@/composables/useEthers';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { dateTimeLabelFor, toUtcTime } from '@/composables/useTime';
 import useTransactions from '@/composables/useTransactions';
-import useVeBal, {
+import useveNFTE, {
   isVotingTimeLocked,
   remainingVoteLockTime,
-} from '@/composables/useVeBAL';
+} from '@/composables/useveNFTE';
 import { WEIGHT_VOTE_DELAY } from '@/constants/gauge-controller';
-import { VEBAL_VOTING_GAUGE } from '@/constants/voting-gauges';
+import { veNFTE_VOTING_GAUGE } from '@/constants/voting-gauges';
 import { bnum, isSameAddress, scale } from '@/lib/utils';
 import { isPositive } from '@/lib/utils/validations';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { VotingGaugeWithVotes } from '@/services/balancer/gauges/gauge-controller.decorator';
 import { gaugeControllerService } from '@/services/contracts/gauge-controller.service';
 import { WalletError } from '@/types';
@@ -33,7 +33,7 @@ type Props = {
   unallocatedVoteWeight: number;
   logoURIs: string[];
   poolURL: string;
-  veBalLockInfo?: VeBalLockInfo | null;
+  veNFTELockInfo?: veNFTELockInfo | null;
   isGaugeExpired: boolean;
 };
 
@@ -43,7 +43,7 @@ const MINIMUM_LOCK_TIME = 86_400_000 * 7;
  * PROPS & EMITS
  */
 const props = withDefaults(defineProps<Props>(), {
-  veBalLockInfo: null,
+  veNFTELockInfo: null,
 });
 
 const emit = defineEmits<{
@@ -58,7 +58,7 @@ const { fNum } = useNumbers();
 const { t } = useI18n();
 const { addTransaction } = useTransactions();
 const { txListener, getTxConfirmedAt } = useEthers();
-const { veBalBalance } = useVeBal();
+const { veNFTEBalance } = useveNFTE();
 const voteState = useActionState();
 
 /**
@@ -70,7 +70,7 @@ const voteWeight = ref<string>('');
  * COMPUTED
  */
 const voteButtonDisabled = computed((): boolean => {
-  if (isVeBalGauge.value) {
+  if (isveNFTEGauge.value) {
     return !!voteError.value || !hasEnoughVotes.value;
   }
 
@@ -87,43 +87,43 @@ const currentWeightNormalized = computed(() =>
 );
 const hasVotes = computed((): boolean => bnum(currentWeight.value).gt(0));
 
-const isVeBalGauge = computed((): boolean =>
-  isSameAddress(props.gauge.address, VEBAL_VOTING_GAUGE?.address || '')
+const isveNFTEGauge = computed((): boolean =>
+  isSameAddress(props.gauge.address, veNFTE_VOTING_GAUGE?.address || '')
 );
 
 // Is votes next period value above voting cap?
 const votesNextPeriodOverCap = computed((): boolean => {
-  if (!isVeBalGauge.value && props.gauge.relativeWeightCap === 'null')
+  if (!isveNFTEGauge.value && props.gauge.relativeWeightCap === 'null')
     return false;
   const gaugeVoteWeightNormalized = scale(props.gauge.votesNextPeriod, -18);
   return gaugeVoteWeightNormalized.gte(
-    bnum(isVeBalGauge.value ? '0.1' : props.gauge.relativeWeightCap)
+    bnum(isveNFTEGauge.value ? '0.1' : props.gauge.relativeWeightCap)
   );
 });
 
 const voteTitle = computed(() => {
   if (props.isGaugeExpired)
-    return t('veBAL.liquidityMining.popover.title.remove');
+    return t('veNFTE.liquidityMining.popover.title.remove');
   return hasVotes.value
-    ? t('veBAL.liquidityMining.popover.title.edit')
-    : t('veBAL.liquidityMining.popover.title.vote');
+    ? t('veNFTE.liquidityMining.popover.title.edit')
+    : t('veNFTE.liquidityMining.popover.title.vote');
 });
 
 const voteButtonText = computed(() => {
   if (props.isGaugeExpired)
-    return t('veBAL.liquidityMining.popover.title.remove');
+    return t('veNFTE.liquidityMining.popover.title.remove');
   return hasVotes.value
-    ? t('veBAL.liquidityMining.popover.button.edit')
-    : t('veBAL.liquidityMining.popover.button.vote');
+    ? t('veNFTE.liquidityMining.popover.button.edit')
+    : t('veNFTE.liquidityMining.popover.button.vote');
 });
 
 const votedToRecentlyWarning = computed(() => {
   if (isVotingTimeLocked(props.gauge.lastUserVoteTime)) {
     const remainingTime = remainingVoteLockTime(props.gauge.lastUserVoteTime);
     return {
-      title: t('veBAL.liquidityMining.popover.warnings.votedTooRecently.title'),
+      title: t('veNFTE.liquidityMining.popover.warnings.votedTooRecently.title'),
       description: t(
-        'veBAL.liquidityMining.popover.warnings.votedTooRecently.description',
+        'veNFTE.liquidityMining.popover.warnings.votedTooRecently.description',
         [remainingTime]
       ),
     };
@@ -136,28 +136,28 @@ const voteLockedUntilText = computed<string>(() => {
   return format(toUtcTime(new Date(unlockTime)), 'd LLLL y');
 });
 
-const noVeBalWarning = computed(() => {
-  if (Number(veBalBalance.value) > 0) {
+const noveNFTEWarning = computed(() => {
+  if (Number(veNFTEBalance.value) > 0) {
     return null;
   }
   return {
-    title: t('veBAL.liquidityMining.popover.warnings.noVeBal.title'),
+    title: t('veNFTE.liquidityMining.popover.warnings.noveNFTE.title'),
     description: t(
-      'veBAL.liquidityMining.popover.warnings.noVeBal.description'
+      'veNFTE.liquidityMining.popover.warnings.noveNFTE.description'
     ),
   };
 });
 
-const veBalLockTooShortWarning = computed(() => {
-  if (props.veBalLockInfo?.hasExistingLock && !props.veBalLockInfo?.isExpired) {
-    const lockEndDate = props.veBalLockInfo.lockedEndDate;
+const veNFTELockTooShortWarning = computed(() => {
+  if (props.veNFTELockInfo?.hasExistingLock && !props.veNFTELockInfo?.isExpired) {
+    const lockEndDate = props.veNFTELockInfo.lockedEndDate;
     if (lockEndDate < Date.now() + MINIMUM_LOCK_TIME) {
       return {
         title: t(
-          'veBAL.liquidityMining.popover.warnings.veBalLockTooShort.title'
+          'veNFTE.liquidityMining.popover.warnings.veNFTELockTooShort.title'
         ),
         description: t(
-          'veBAL.liquidityMining.popover.warnings.veBalLockTooShort.description'
+          'veNFTE.liquidityMining.popover.warnings.veNFTELockTooShort.description'
         ),
       };
     }
@@ -168,22 +168,22 @@ const veBalLockTooShortWarning = computed(() => {
 
 const lpVoteOverLimitWarning = computed(() => {
   if (votesNextPeriodOverCap.value) {
-    if (isVeBalGauge.value) {
+    if (isveNFTEGauge.value) {
       return {
         title: t(
-          'veBAL.liquidityMining.popover.warnings.veBalVoteOverLimitWarning.title'
+          'veNFTE.liquidityMining.popover.warnings.veNFTEVoteOverLimitWarning.title'
         ),
         description: t(
-          'veBAL.liquidityMining.popover.warnings.veBalVoteOverLimitWarning.description'
+          'veNFTE.liquidityMining.popover.warnings.veNFTEVoteOverLimitWarning.description'
         ),
       };
     } else {
       return {
         title: t(
-          'veBAL.liquidityMining.popover.warnings.lpVoteOverLimitWarning.title'
+          'veNFTE.liquidityMining.popover.warnings.lpVoteOverLimitWarning.title'
         ),
         description: t(
-          'veBAL.liquidityMining.popover.warnings.lpVoteOverLimitWarning.description',
+          'veNFTE.liquidityMining.popover.warnings.lpVoteOverLimitWarning.description',
           [(Number(props.gauge.relativeWeightCap) * 100).toFixed()]
         ),
       };
@@ -204,17 +204,17 @@ const voteWarning = computed(
   }
 );
 
-const veBalExpired = computed(() => props.veBalLockInfo?.isExpired);
+const veNFTEExpired = computed(() => props.veNFTELockInfo?.isExpired);
 
-const veBalExpiredWarning = {
-  title: t('veBAL.liquidityMining.popover.warnings.expiredVeBal.title'),
+const veNFTEExpiredWarning = {
+  title: t('veNFTE.liquidityMining.popover.warnings.expiredveNFTE.title'),
   description: t(
-    'veBAL.liquidityMining.popover.warnings.expiredVeBal.description'
+    'veNFTE.liquidityMining.popover.warnings.expiredveNFTE.description'
   ),
 };
 
-const poolAndVeBalExpired = computed(
-  () => props.isGaugeExpired && veBalExpired.value
+const poolAndveNFTEExpired = computed(
+  () => props.isGaugeExpired && veNFTEExpired.value
 );
 
 const voteError = computed(
@@ -222,11 +222,11 @@ const voteError = computed(
     title: string;
     description: string;
   } | null => {
-    if (veBalExpired.value) return veBalExpiredWarning;
+    if (veNFTEExpired.value) return veNFTEExpiredWarning;
     if (votedToRecentlyWarning.value) return votedToRecentlyWarning.value;
     if (votedToRecentlyWarning.value) return votedToRecentlyWarning.value;
-    if (noVeBalWarning.value) return noVeBalWarning.value;
-    if (veBalLockTooShortWarning.value) return veBalLockTooShortWarning.value;
+    if (noveNFTEWarning.value) return noveNFTEWarning.value;
+    if (veNFTELockTooShortWarning.value) return veNFTELockTooShortWarning.value;
     return null;
   }
 );
@@ -257,11 +257,11 @@ const unallocatedVotesClass = computed(() => {
 const remainingVotes = computed(() => {
   let remainingVotesText;
   if (!hasEnoughVotes.value) {
-    remainingVotesText = 'veBAL.liquidityMining.popover.remainingVotesExceeded';
+    remainingVotesText = 'veNFTE.liquidityMining.popover.remainingVotesExceeded';
   } else {
     remainingVotesText = hasVotes.value
-      ? 'veBAL.liquidityMining.popover.remainingVotesEditing'
-      : 'veBAL.liquidityMining.popover.remainingVotes';
+      ? 'veNFTE.liquidityMining.popover.remainingVotesEditing'
+      : 'veNFTE.liquidityMining.popover.remainingVotes';
   }
   const remainingVotesFormatted = fNum(
     scale(
@@ -320,7 +320,7 @@ async function handleTransaction(tx) {
     id: tx.hash,
     type: 'tx',
     action: 'voteForGauge',
-    summary: t('veBAL.liquidityMining.popover.voteForGauge', [
+    summary: t('veNFTE.liquidityMining.popover.voteForGauge', [
       fNum(scale(voteWeight.value, -2).toString(), FNumFormats.percent),
       props.gauge.pool.symbol,
     ]),
@@ -380,14 +380,14 @@ onMounted(() => {
       <div v-if="!voteWarning" class="mb-4 text-sm">
         <ul class="ml-4 list-disc text-gray-600 dark:text-gray-400">
           <li class="mb-1">
-            {{ t('veBAL.liquidityMining.popover.emissionsInfo') }}
+            {{ t('veNFTE.liquidityMining.popover.emissionsInfo') }}
           </li>
           <li class="mb-1">
-            {{ t('veBAL.liquidityMining.popover.resubmitVote') }}
+            {{ t('veNFTE.liquidityMining.popover.resubmitVote') }}
           </li>
           <li>
             {{
-              t('veBAL.liquidityMining.popover.voteLockInfo', [
+              t('veNFTE.liquidityMining.popover.voteLockInfo', [
                 voteLockedUntilText,
               ])
             }}
@@ -462,10 +462,10 @@ onMounted(() => {
             </div>
           </template>
         </BalTextInput>
-        <template v-if="!poolAndVeBalExpired">
+        <template v-if="!poolAndveNFTEExpired">
           <div v-if="voteError" class="mt-2 text-sm text-secondary">
             {{
-              t('veBAL.liquidityMining.popover.warnings.noVeBal.inputHintText')
+              t('veNFTE.liquidityMining.popover.warnings.noveNFTE.inputHintText')
             }}
           </div>
           <div v-else :class="['mt-2 text-sm'].concat(unallocatedVotesClass)">
@@ -479,8 +479,8 @@ onMounted(() => {
           class="mt-4"
           :loadingLabel="
             voteState.state.value === State.TRANSACTION_INITIALIZED
-              ? $t('veBAL.liquidityMining.popover.actions.vote.loadingLabel')
-              : $t('veBAL.liquidityMining.popover.actions.vote.confirming')
+              ? $t('veNFTE.liquidityMining.popover.actions.vote.loadingLabel')
+              : $t('veNFTE.liquidityMining.popover.actions.vote.confirming')
           "
           @click:close="emit('close')"
           @click:submit="submitVote"

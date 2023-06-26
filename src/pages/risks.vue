@@ -390,7 +390,7 @@ import { RiskKey } from '@/types/pools';
       <h4>DAO Governance risk</h4>
       <p>
         Balancer currently uses off-chain voting mechanisms to signal the will
-        of veBAL token holders (vote-escrow BAL). This off-chain voting is done
+        of veNFTE token holders (vote-escrow BAL). This off-chain voting is done
         via <a class="link" href="https://snapshot.org/">Snapshot</a>—originally
         developed in-house by Balancer Labs.
       </p>
@@ -428,14 +428,14 @@ import { RiskKey } from '@/types/pools';
               Gauntlet) that may change the swap fee for pools created by the
               dynamic-fee pool factory that will be deployed by Balancer Labs
             </li>
-            <li>Add and remove veBAL gauges</li>
+            <li>Add and remove veNFTE gauges</li>
           </ul>
         </li>
       </ul>
       <p>
         Note: The system of Balancer Governance may change in the future. For
         example, Balancer community members have expressed interest in moving
-        from the Multisig towards on-chain governance execution by veBAL token
+        from the Multisig towards on-chain governance execution by veNFTE token
         holders.
       </p>
       <p>
@@ -450,7 +450,7 @@ import { RiskKey } from '@/types/pools';
             href="https://docs.balancer.fi/concepts/governance/multisig.html#dao-multisig-signer-set"
             >Multisig signer set</a
           >
-          could go rogue and disregard the decision made by veBAL holders in the
+          could go rogue and disregard the decision made by veNFTE holders in the
           off-chain voting.
         </li>
         <li>
@@ -463,7 +463,7 @@ import { RiskKey } from '@/types/pools';
           could mistakenly execute the wrong instruction without malice.
         </li>
         <li>
-          An individual or an entity could acquire substantial veBAL and vote
+          An individual or an entity could acquire substantial veNFTE and vote
           against the interests of the majority of the community.
         </li>
       </ul>

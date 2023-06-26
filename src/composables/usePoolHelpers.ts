@@ -291,19 +291,19 @@ export function totalAprLabel(aprs: AprBreakdown, boost?: string): string {
 }
 
 /**
- * @summary Checks if given pool is BAL 80/20 pool (veBAL)
+ * @summary Checks if given pool is BAL 80/20 pool (veNFTE)
  */
-export function isVeBalPool(poolId: string): boolean {
-  return POOLS.IdsMap?.veBAL === poolId;
+export function isveNFTEPool(poolId: string): boolean {
+  return POOLS.IdsMap?.veNFTE === poolId;
 }
 /**
- * @summary Checks if given token address is BAL 80/20 pool (veBAL)
+ * @summary Checks if given token address is BAL 80/20 pool (veNFTE)
  */
-export function isVeBalPoolAddress(address: string): boolean {
-  const veBALPoolAddress = POOLS.IdsMap?.veBAL?.slice(0, 42);
-  if (!veBALPoolAddress) return false;
+export function isveNFTEPoolAddress(address: string): boolean {
+  const veNFTEPoolAddress = POOLS.IdsMap?.veNFTE?.slice(0, 42);
+  if (!veNFTEPoolAddress) return false;
 
-  return isSameAddress(veBALPoolAddress, address);
+  return isSameAddress(veNFTEPoolAddress, address);
 }
 
 interface TokenTreeOpts {

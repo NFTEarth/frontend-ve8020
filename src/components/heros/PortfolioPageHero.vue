@@ -10,7 +10,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 
 import HeroConnectWalletButton from './HeroConnectWalletButton.vue';
 import { useUserPools } from '@/providers/local/user-pools.provider';
-import { isVeBalSupported } from '@/composables/useVeBAL';
+import { isveNFTESupported } from '@/composables/useveNFTE';
 
 /**
  * COMPOSABLES
@@ -34,7 +34,7 @@ const totalInvestedLabel = computed((): string =>
   fNum(totalFiatValue.value, FNumFormats.fiat)
 );
 
-const totalVeBalLabel = computed((): string =>
+const totalveNFTELabel = computed((): string =>
   fNum(totalLockedValue.value, FNumFormats.fiat)
 );
 
@@ -57,7 +57,7 @@ const isLoadingTotalValue = computed((): boolean => isLoadingPools.value);
       <div v-else class="mb-1 text-3xl font-semibold text-white">
         {{ totalInvestedLabel }}
       </div>
-      <div v-if="!isVeBalSupported" class="inline-block relative mt-2">
+      <div v-if="!isveNFTESupported" class="inline-block relative mt-2">
         <BalLoadingBlock
           v-if="isLoadingTotalValue"
           class="mx-auto w-40 h-8"
@@ -65,13 +65,13 @@ const isLoadingTotalValue = computed((): boolean => isLoadingPools.value);
         />
         <div
           v-else
-          class="group flex items-center px-3 h-8 text-sm font-medium text-yellow-500 hover:text-white focus:text-white rounded-tr rounded-bl border border-yellow-500 transition-colors cursor-pointer vebal-banner"
-          @click="router.push({ name: 'vebal', params: { networkSlug } })"
+          class="group flex items-center px-3 h-8 text-sm font-medium text-yellow-500 hover:text-white focus:text-white rounded-tr rounded-bl border border-yellow-500 transition-colors cursor-pointer veNFTE-banner"
+          @click="router.push({ name: 'veNFTE', params: { networkSlug } })"
         >
           <span v-if="totalLockedValue === '0'"
-            >{{ totalLockedValue }} {{ $t('veBAL.hero.tokens.veBAL') }}</span
+            >{{ totalLockedValue }} {{ $t('veNFTE.hero.tokens.veNFTE') }}</span
           >
-          <span v-else>{{ $t('inclXInVeBal', [totalVeBalLabel]) }}</span>
+          <span v-else>{{ $t('inclXInveNFTE', [totalveNFTELabel]) }}</span>
         </div>
       </div>
     </template>
@@ -85,7 +85,7 @@ const isLoadingTotalValue = computed((): boolean => isLoadingPools.value);
 </template>
 
 <style>
-.vebal-banner::before {
+.veNFTE-banner::before {
   @apply border border-yellow-500;
 
   content: '';
@@ -97,7 +97,7 @@ const isLoadingTotalValue = computed((): boolean => isLoadingPools.value);
   border-top-left-radius: 8px;
 }
 
-.vebal-banner::after {
+.veNFTE-banner::after {
   @apply border border-yellow-500;
 
   content: '';

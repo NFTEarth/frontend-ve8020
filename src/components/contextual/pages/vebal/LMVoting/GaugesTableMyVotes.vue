@@ -10,7 +10,7 @@ import { useI18n } from 'vue-i18n';
 import {
   isVotingTimeLocked,
   remainingVoteLockTime,
-} from '@/composables/useVeBAL';
+} from '@/composables/useveNFTE';
 import TimelockIcon from '@/components/_global/icons/TimelockIcon.vue';
 import BalTooltip from '@/components/_global/BalTooltip/BalTooltip.vue';
 
@@ -67,13 +67,13 @@ const poolHasUnderUtilizedVotingPoewer = computed<boolean>(
       <div>
         <span class="font-semibold">
           {{
-            $t('veBAL.liquidityMining.popover.warnings.votedTooRecently.title')
+            $t('veNFTE.liquidityMining.popover.warnings.votedTooRecently.title')
           }}
         </span>
         <p class="text-gray-500">
           {{
             $t(
-              'veBAL.liquidityMining.popover.warnings.votedTooRecently.description',
+              'veNFTE.liquidityMining.popover.warnings.votedTooRecently.description',
               [remainingVoteLockTime(gauge.lastUserVoteTime)]
             )
           }}
@@ -91,10 +91,10 @@ const poolHasUnderUtilizedVotingPoewer = computed<boolean>(
       </template>
       <div class="flex flex-col gap-1">
         <span class="font-semibold"
-          >{{ t('veBAL.liquidityMining.resubmit.hint.title') }}
+          >{{ t('veNFTE.liquidityMining.resubmit.hint.title') }}
         </span>
         <span>
-          {{ t('veBAL.liquidityMining.resubmit.hint.description') }}
+          {{ t('veNFTE.liquidityMining.resubmit.hint.description') }}
         </span>
       </div>
     </BalTooltip>

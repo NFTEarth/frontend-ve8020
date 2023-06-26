@@ -5,7 +5,7 @@ import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { useTokens } from '@/providers/tokens.provider';
 import useNetwork from '@/composables/useNetwork';
 import { bnum } from '@/lib/utils';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import { Pool } from '@/services/pool/types';
 import { TokenInfo } from '@/types/TokenList';
 
@@ -15,7 +15,7 @@ import { TokenInfo } from '@/types/TokenList';
 type Props = {
   lockablePool: Pool;
   lockablePoolTokenInfo: TokenInfo;
-  veBalLockInfo?: VeBalLockInfo;
+  veNFTELockInfo?: veNFTELockInfo;
 };
 
 /**
@@ -47,7 +47,7 @@ const fiatTotal = computed((): string =>
   <BalCard noPad shadow="none">
     <div class="p-4 w-full border-b dark:border-gray-900">
       <h6>
-        {{ $t('getVeBAL.lockableTokens.title') }}
+        {{ $t('getveNFTE.lockableTokens.title') }}
       </h6>
     </div>
     <div class="p-4 -mt-2">
@@ -69,7 +69,7 @@ const fiatTotal = computed((): string =>
         class="block mt-2 text-sm"
       >
         {{
-          $t('getVeBAL.lockableTokens.getMoreVeBAL', [
+          $t('getveNFTE.lockableTokens.getMoreveNFTE', [
             lockablePoolTokenInfo.symbol,
           ])
         }}

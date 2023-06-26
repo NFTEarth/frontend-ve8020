@@ -40,13 +40,13 @@ export interface Contracts {
   lidoRelayer: string;
   balancerHelpers: string;
   batchRelayer: string;
-  veBAL: string;
+  veNFTE: string;
   gaugeController: string;
   gaugeFactory: string;
   balancerMinter: string;
   tokenAdmin: string;
   veDelegationProxy: string;
-  veBALHelpers: string;
+  veNFTEHelpers: string;
   feeDistributor: string;
   feeDistributorDeprecated: string;
   faucet: string;

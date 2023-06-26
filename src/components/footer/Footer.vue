@@ -69,9 +69,9 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
             <p>
               <router-link
                 class="text-lg font-medium link"
-                :to="{ name: 'vebal', params: { networkSlug } }"
+                :to="{ name: 'veNFTE', params: { networkSlug } }"
               >
-                {{ $t('vebal') }}
+                {{ $t('veNFTE') }}
               </router-link>
             </p>
           </div>

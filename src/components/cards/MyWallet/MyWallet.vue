@@ -7,7 +7,7 @@ import { configService } from '@/services/config/config.service';
 import useWeb3 from '@/services/web3/useWeb3';
 import { AnyPool } from '@/services/pool/types';
 import MyWalletSubheader from './MyWalletSubheader.vue';
-import useNativeBalance from '@/composables/useNativeBalance';
+import useNativeNFTEance from '@/composables/useNativeNFTEance';
 import { usePoolHelpers } from '@/composables/usePoolHelpers';
 import { useSwapState } from '@/composables/swap/useSwapState';
 import { includesAddress } from '@/lib/utils';
@@ -67,7 +67,7 @@ const noTokensMessage = computed(() => {
   return t('noTokensInWallet', [networkName]);
 });
 
-const { hasNativeBalance, nativeBalance, nativeCurrency } = useNativeBalance();
+const { hasNativeNFTEance, nativeNFTEance, nativeCurrency } = useNativeNFTEance();
 
 function handleAssetClick(tokenAddress) {
   setTokenInAddress(tokenAddress);
@@ -102,10 +102,10 @@ const emit = defineEmits<{
           class="ml-1 lg:ml-0 font-semibold lg:font-normal"
         >
           <div
-            v-if="!hasNativeBalance"
+            v-if="!hasNativeNFTEance"
             class="mr-0.5 text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors"
           >
-            {{ nativeBalance }} {{ nativeCurrency }}
+            {{ nativeNFTEance }} {{ nativeCurrency }}
             <BalTooltip
               v-if="isWalletReady"
               :text="
@@ -120,7 +120,7 @@ const emit = defineEmits<{
               class="relative top-0.5"
             />
           </div>
-          <div v-else>{{ nativeBalance }} {{ nativeCurrency }}</div>
+          <div v-else>{{ nativeNFTEance }} {{ nativeCurrency }}</div>
         </div>
         <BalLoadingBlock v-else class="w-12 h-8" />
       </div>

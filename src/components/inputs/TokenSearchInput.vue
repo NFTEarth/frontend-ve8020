@@ -6,7 +6,7 @@ import { useI18n } from 'vue-i18n';
 
 import SelectTokenModal from '@/components/modals/SelectTokenModal/SelectTokenModal.vue';
 import { useTokens } from '@/providers/tokens.provider';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import {
   NATIVE_ASSET_ADDRESS,
   TOKENS,
@@ -41,7 +41,7 @@ const selectTokenModal = ref(false);
  */
 const { getToken, tokens, balances } = useTokens();
 const { account } = useWeb3();
-const { veBalTokenInfo } = useVeBal();
+const { veNFTETokenInfo } = useveNFTE();
 const { t } = useI18n();
 const { upToMediumBreakpoint } = useBreakpoints();
 
@@ -53,7 +53,7 @@ const sortedBalances = computed(() => {
   const addressesWithBalance = Object.entries(balances.value)
     .filter(
       ([address, balance]) =>
-        balance !== '0.0' && address !== veBalTokenInfo.value?.address
+        balance !== '0.0' && address !== veNFTETokenInfo.value?.address
     )
     .map(([address]) => address);
   const tokensWithBalance = Object.values(
@@ -145,7 +145,7 @@ function onClick() {
     <teleport to="#modal">
       <SelectTokenModal
         v-if="selectTokenModal"
-        :excludedTokens="compact([...modelValue, veBalTokenInfo?.address])"
+        :excludedTokens="compact([...modelValue, veNFTETokenInfo?.address])"
         @close="selectTokenModal = false"
         @select="addToken"
       />

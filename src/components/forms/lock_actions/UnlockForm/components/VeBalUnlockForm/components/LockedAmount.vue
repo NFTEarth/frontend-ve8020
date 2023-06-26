@@ -27,7 +27,7 @@ const { fNum } = useNumbers();
 <template>
   <div class="mb-6">
     <div class="pb-4">
-      {{ $t('unlockVeBAL.unlockForm.lockedAmount.title') }}
+      {{ $t('unlockveNFTE.unlockForm.lockedAmount.title') }}
     </div>
     <div class="p-3 dark:bg-gray-800 rounded-lg border dark:border-gray-800">
       <div class="flex items-center">

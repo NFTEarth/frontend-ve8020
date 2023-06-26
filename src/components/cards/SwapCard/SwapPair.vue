@@ -3,7 +3,7 @@ import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
 import { UseSwapping } from '@/composables/swap/useSwapping';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { useTokens } from '@/providers/tokens.provider';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import { bnum } from '@/lib/utils';
 
 import SwapPairToggle from './SwapPairToggle.vue';
@@ -41,7 +41,7 @@ const emit = defineEmits<{
  */
 const { fNum } = useNumbers();
 const { getToken } = useTokens();
-const { veBalTokenInfo } = useVeBal();
+const { veNFTETokenInfo } = useveNFTE();
 
 /**
  * STATE
@@ -167,7 +167,7 @@ onMounted(() => {
       :address="_tokenInAddress"
       name="tokenIn"
       :aria-label="$t('inputLabels.tokenIn')"
-      :excludedTokens="veBalTokenInfo ? [veBalTokenInfo.address] : []"
+      :excludedTokens="veNFTETokenInfo ? [veNFTETokenInfo.address] : []"
       :ignoreWalletBalance="swapLoading"
       autoFocus
       @update:amount="handleInAmountChange"
@@ -196,7 +196,7 @@ onMounted(() => {
       noRules
       noMax
       disableNativeAssetBuffer
-      :excludedTokens="veBalTokenInfo ? [veBalTokenInfo.address] : []"
+      :excludedTokens="veNFTETokenInfo ? [veNFTETokenInfo.address] : []"
       @update:amount="handleOutAmountChange"
       @update:address="handleOutputTokenChange"
       @input="emit('update:exactIn', false)"

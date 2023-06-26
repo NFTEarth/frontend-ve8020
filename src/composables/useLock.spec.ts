@@ -6,7 +6,7 @@ import { initDependenciesWithDefaultMocks } from '@/dependencies/default-mocks';
 import { defaultLockedAmount } from '@/dependencies/Multicaller.mocks';
 import { provideUserData } from '@/providers/user-data.provider';
 import { poolsStoreService } from '@/services/pool/pools-store.service';
-import { aVeBalPool } from '@tests/unit/builders/pool.builders';
+import { aveNFTEPool } from '@tests/unit/builders/pool.builders';
 
 initDependenciesWithDefaultMocks();
 
@@ -17,13 +17,13 @@ async function mountUseLock() {
   return result;
 }
 
-const veBalPool = aVeBalPool({
+const veNFTEPool = aveNFTEPool({
   totalLiquidity: '1000',
   totalShares: '100',
 });
-poolsStoreService.setPools([veBalPool]);
+poolsStoreService.setPools([veNFTEPool]);
 
-test('returns veBal locked amount', async () => {
+test('returns veNFTE locked amount', async () => {
   const result = await mountUseLock();
 
   await waitForExpect(() => expect(result.isLoadingLock.value).toBeFalse());

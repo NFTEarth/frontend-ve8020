@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import { useLock } from '@/composables/useLock';
 import useWeb3 from '@/services/web3/useWeb3';
 
-import MyVeBalCards from './components/MyVeBalCards.vue';
+import MyveNFTECards from './components/MyveNFTECards.vue';
 
 /**
  * COMPOSABLES
@@ -32,15 +32,15 @@ const isLoading = computed(() =>
 
 <template>
   <h3 class="mb-3">
-    {{ $t('veBAL.myVeBAL.title') }}
+    {{ $t('veNFTE.myveNFTE.title') }}
   </h3>
   <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
     <template v-if="isLoading">
       <BalLoadingBlock v-for="n in 4" :key="n" class="h-24" />
     </template>
-    <MyVeBalCards
+    <MyveNFTECards
       v-else-if="lockPool && lockPoolToken"
-      :veBalLockInfo="lock"
+      :veNFTELockInfo="lock"
       :lockablePool="lockPool"
       :lockablePoolTokenInfo="lockPoolToken"
       :totalLockedValue="totalLockedValue"

@@ -6,19 +6,19 @@ import { getAddress } from '@ethersproject/address';
 import { formatUnits } from '@ethersproject/units';
 import { mapValues } from 'lodash';
 
-import veBalProxyABI from '@/lib/abi/veDelegationProxy.json';
+import veNFTEProxyABI from '@/lib/abi/veDelegationProxy.json';
 import { configService } from '@/services/config/config.service';
 import { rpcProviderService } from '@/services/rpc-provider/rpc-provider.service';
 import { walletService as walletServiceInstance } from '@/services/web3/wallet.service';
 import { getOldMulticaller } from '@/dependencies/OldMulticaller';
 
-export class VeBALProxy {
+export class veNFTEProxy {
   instance: EthersContract;
 
   constructor(
     public readonly address: string,
     private readonly provider = rpcProviderService.jsonProvider,
-    private readonly abi = veBalProxyABI,
+    private readonly abi = veNFTEProxyABI,
     private readonly config = configService,
     private readonly walletService = walletServiceInstance
   ) {

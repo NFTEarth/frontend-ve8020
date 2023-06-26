@@ -17,17 +17,17 @@ export const ROUTE_META_DATA = {
   claim: {
     metaTitle: 'Claim liquidity mining incentives from staking',
     metaDescription:
-      'LPs who stake can claim liquidity mining incentives. veBAL holders can boost incentives and claim their share of protocol revenue',
+      'LPs who stake can claim liquidity mining incentives. veNFTE holders can boost incentives and claim their share of protocol revenue',
   },
   portfolio: {
     metaTitle: 'Balancer portfolio',
     metaDescription:
       'Track your Balancer Portfolio, including your unstaked and stake LP positions',
   },
-  vebal: {
-    metaTitle: 'veBAL tokenomics',
+  veNFTE: {
+    metaTitle: 'veNFTE tokenomics',
     metaDescription:
-      'Get veBAL (voter escrowed B-80BAL-20WETH) for extra liquidity mining incentives, governance voting power and a share of protocol revenue',
+      'Get veNFTE (voter escrowed B-80BAL-20WETH) for extra liquidity mining incentives, governance voting power and a share of protocol revenue',
   },
   'terms-of-use': {
     metaTitle: 'Balancer Terms of Use',

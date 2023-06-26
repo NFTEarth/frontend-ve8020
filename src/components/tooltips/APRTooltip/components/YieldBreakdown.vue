@@ -9,7 +9,7 @@ import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import {
   hasBoostedAPR,
   isDeep,
-  isVeBalPoolAddress,
+  isveNFTEPoolAddress,
 } from '@/composables/usePoolHelpers';
 import { useTokens } from '@/providers/tokens.provider';
 
@@ -56,8 +56,8 @@ const yieldAPRLabel = computed(() => {
   if (yieldTokensList.length === 1) {
     if (hasBoostedAPR(yieldTokensList[0]))
       return t('yieldAprRewards.apr.boosted');
-    if (isVeBalPoolAddress(yieldTokensList[0]))
-      return t('yieldAprRewards.apr.veBAL');
+    if (isveNFTEPoolAddress(yieldTokensList[0]))
+      return t('yieldAprRewards.apr.veNFTE');
 
     const tokenAddress = getAddress(yieldTokensList[0]);
     const token = getToken(tokenAddress);

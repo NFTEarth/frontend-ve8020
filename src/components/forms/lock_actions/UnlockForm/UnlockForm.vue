@@ -3,34 +3,34 @@ import { computed } from 'vue';
 
 import Col3Layout from '@/components/layouts/Col3Layout.vue';
 import usePoolQuery from '@/composables/queries/usePoolQuery';
-import useVeBalLockInfoQuery from '@/composables/queries/useVeBalLockInfoQuery';
+import useveNFTELockInfoQuery from '@/composables/queries/useveNFTELockInfoQuery';
 import { useTokens } from '@/providers/tokens.provider';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 import { Pool } from '@/services/pool/types';
 import useWeb3 from '@/services/web3/useWeb3';
 
-import MyVeBAL from '../LockForm/components/MyVeBAL.vue';
-import VeBalUnlockForm from './components/VeBalUnlockForm/VeBalUnlockForm.vue';
+import MyveNFTE from '../LockForm/components/MyveNFTE.vue';
+import veNFTEUnlockForm from './components/veNFTEUnlockForm/veNFTEUnlockForm.vue';
 
 /**
  * COMPOSABLES
  */
 const { getToken } = useTokens();
 const { isWalletReady } = useWeb3();
-const { lockablePoolId } = useVeBal();
+const { lockablePoolId } = useveNFTE();
 
 /**
  * QUERIES
  */
 const lockablePoolQuery = usePoolQuery(lockablePoolId.value as string);
-const veBalLockInfoQuery = useVeBalLockInfoQuery();
+const veNFTELockInfoQuery = useveNFTELockInfoQuery();
 
 /**
  * COMPUTED
  */
 const lockablePoolLoading = computed(() => lockablePoolQuery.isLoading.value);
 
-const veBalQueryLoading = computed(() => veBalLockInfoQuery.isLoading.value);
+const veNFTEQueryLoading = computed(() => veNFTELockInfoQuery.isLoading.value);
 
 const lockablePool = computed<Pool | undefined>(
   () => lockablePoolQuery.data.value
@@ -40,11 +40,11 @@ const lockablePoolTokenInfo = computed(() =>
   lockablePool.value != null ? getToken(lockablePool.value.address) : null
 );
 
-const veBalLockInfo = computed(() => veBalLockInfoQuery.data.value);
+const veNFTELockInfo = computed(() => veNFTELockInfoQuery.data.value);
 
 const isLoading = computed(() =>
   isWalletReady.value
-    ? lockablePoolLoading.value || veBalQueryLoading.value
+    ? lockablePoolLoading.value || veNFTEQueryLoading.value
     : lockablePoolLoading.value
 );
 </script>
@@ -53,25 +53,25 @@ const isLoading = computed(() =>
   <Col3Layout offsetGutters>
     <BalLoadingBlock
       v-if="
-        isLoading || !veBalLockInfo || !lockablePool || !lockablePoolTokenInfo
+        isLoading || !veNFTELockInfo || !lockablePool || !lockablePoolTokenInfo
       "
       class="h-96"
     />
-    <VeBalUnlockForm
+    <veNFTEUnlockForm
       v-else
       :key="
-        veBalLockInfo?.hasExistingLock
-          ? 'veBalUnlockForm-hasLock'
-          : 'veBalUnlockForm-noLock'
+        veNFTELockInfo?.hasExistingLock
+          ? 'veNFTEUnlockForm-hasLock'
+          : 'veNFTEUnlockForm-noLock'
       "
       :lockablePool="lockablePool"
       :lockablePoolTokenInfo="lockablePoolTokenInfo"
-      :veBalLockInfo="veBalLockInfo"
+      :veNFTELockInfo="veNFTELockInfo"
     />
 
     <template #gutterRight>
       <BalLoadingBlock v-if="isLoading" class="h-64" />
-      <MyVeBAL v-else :veBalLockInfo="veBalLockInfo" />
+      <MyveNFTE v-else :veNFTELockInfo="veNFTELockInfo" />
     </template>
   </Col3Layout>
 </template>

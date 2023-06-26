@@ -28,17 +28,17 @@ const { t } = useI18n();
 const aprLabel = computed((): string => fNum(props.apr, FNumFormats.bp));
 
 const items = computed((): string[] => [
-  t('tooltips.veBalApr.breakdown1'),
-  t('tooltips.veBalApr.breakdown2'),
+  t('tooltips.veNFTEApr.breakdown1'),
+  t('tooltips.veNFTEApr.breakdown2'),
 ]);
 </script>
 
 <template>
-  <div data-testid="vebal-apr">
+  <div data-testid="veNFTE-apr">
     <BalBreakdown :items="items">
       {{ aprLabel }}
       <span class="ml-1 text-xs text-secondary">
-        {{ $t('tooltips.veBalApr.title') }}
+        {{ $t('tooltips.veNFTEApr.title') }}
       </span>
       <template #item="{ item }">
         <div class="text-xs text-secondary">

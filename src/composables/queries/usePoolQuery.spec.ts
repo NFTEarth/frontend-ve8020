@@ -5,20 +5,20 @@ import {
   mountComposableWithDefaultTokensProvider,
   waitForQueryData,
 } from '@tests/mount-helpers';
-import { aVeBalPool } from '@tests/unit/builders/pool.builders';
+import { aveNFTEPool } from '@tests/unit/builders/pool.builders';
 
 initDependenciesWithDefaultMocks();
 
 test('Returns already downloaded pool (recovered by poolsStoreService)', async () => {
-  const veBalPool = aVeBalPool();
-  poolsStoreService.setPools([veBalPool]);
+  const veNFTEPool = aveNFTEPool();
+  poolsStoreService.setPools([veNFTEPool]);
 
   const { result } = mountComposableWithDefaultTokensProvider(() =>
-    usePoolQuery(veBalPool.id, ref(true))
+    usePoolQuery(veNFTEPool.id, ref(true))
   );
 
   const data = await waitForQueryData(result);
 
-  expect(data?.id).toEqual(veBalPool.id);
-  expect(data?.address).toEqual(veBalPool.address);
+  expect(data?.id).toEqual(veNFTEPool.id);
+  expect(data?.address).toEqual(veNFTEPool.address);
 });

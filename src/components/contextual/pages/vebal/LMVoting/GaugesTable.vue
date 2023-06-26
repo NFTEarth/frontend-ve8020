@@ -75,7 +75,7 @@ const { isWalletReady } = useWeb3();
  */
 const columns = computed((): ColumnDefinition<VotingGaugeWithVotes>[] => [
   {
-    name: t('veBAL.liquidityMining.table.chain'),
+    name: t('veNFTE.liquidityMining.table.chain'),
     id: 'chain',
     accessor: '',
     Header: 'chainColumnHeader',
@@ -84,7 +84,7 @@ const columns = computed((): ColumnDefinition<VotingGaugeWithVotes>[] => [
     noGrow: true,
   },
   {
-    name: t('veBAL.liquidityMining.table.assets'),
+    name: t('veNFTE.liquidityMining.table.assets'),
     id: 'icons',
     accessor: 'uri',
     Header: 'iconColumnHeader',
@@ -93,14 +93,14 @@ const columns = computed((): ColumnDefinition<VotingGaugeWithVotes>[] => [
     noGrow: true,
   },
   {
-    name: t('veBAL.liquidityMining.table.composition'),
+    name: t('veNFTE.liquidityMining.table.composition'),
     id: 'poolComposition',
     accessor: 'id',
     Cell: 'poolCompositionCell',
     width: 350,
   },
   {
-    name: t('veBAL.liquidityMining.table.nextPeriodVotes'),
+    name: t('veNFTE.liquidityMining.table.nextPeriodVotes'),
     accessor: 'id',
     align: 'right',
     id: 'nextPeriodVotes',
@@ -110,7 +110,7 @@ const columns = computed((): ColumnDefinition<VotingGaugeWithVotes>[] => [
     cellClassName: 'font-numeric',
   },
   {
-    name: t('veBAL.liquidityMining.table.myVotes'),
+    name: t('veNFTE.liquidityMining.table.myVotes'),
     accessor: 'myVotes',
     align: 'right',
     id: 'myVotes',
@@ -121,7 +121,7 @@ const columns = computed((): ColumnDefinition<VotingGaugeWithVotes>[] => [
     hidden: !isWalletReady.value,
   },
   {
-    name: t('veBAL.liquidityMining.table.vote'),
+    name: t('veNFTE.liquidityMining.table.vote'),
     id: 'vote',
     accessor: 'id',
     align: 'right',
@@ -275,12 +275,12 @@ function getPickedTokens(tokens: PoolToken[]) {
             <GaugeVoteInfo :gauge="gauge" />
             <div class="flex justify-end w-6">
               <IconLimit
-                v-if="gauge.pool.symbol === 'veBAL'"
+                v-if="gauge.pool.symbol === 'veNFTE'"
                 size="sm"
                 amount="10"
                 :tooltip="
                   $t(
-                    'veBAL.liquidityMining.limitsTooltip.distributionsCappedVeBAL'
+                    'veNFTE.liquidityMining.limitsTooltip.distributionsCappedveNFTE'
                   )
                 "
               />
@@ -293,7 +293,7 @@ function getPickedTokens(tokens: PoolToken[]) {
                 :amount="(Number(gauge.relativeWeightCap) * 100).toFixed()"
                 :tooltip="
                   $t(
-                    'veBAL.liquidityMining.limitsTooltip.distributionsCappedAt',
+                    'veNFTE.liquidityMining.limitsTooltip.distributionsCappedAt',
                     [(Number(gauge.relativeWeightCap) * 100).toFixed()]
                   )
                 "

@@ -64,11 +64,11 @@ const { txListener, getTxConfirmedAt } = useEthers();
 const { fNum } = useNumbers();
 
 const unlockAction: TransactionActionInfo = {
-  label: t(`unlockVeBAL.previewModal.actions.unlock.label`),
-  loadingLabel: t(`unlockVeBAL.previewModal.actions.unlock.loadingLabel`),
-  confirmingLabel: t(`unlockVeBAL.previewModal.actions.unlock.confirming`),
+  label: t(`unlockveNFTE.previewModal.actions.unlock.label`),
+  loadingLabel: t(`unlockveNFTE.previewModal.actions.unlock.loadingLabel`),
+  confirmingLabel: t(`unlockveNFTE.previewModal.actions.unlock.confirming`),
   action: submit,
-  stepTooltip: t(`unlockVeBAL.previewModal.actions.unlock.tooltip`),
+  stepTooltip: t(`unlockveNFTE.previewModal.actions.unlock.tooltip`),
 };
 
 const actions = ref<TransactionActionInfo[]>([unlockAction]);
@@ -110,7 +110,7 @@ async function submit() {
     let tx: TransactionResponse;
     unlockActionState.init = true;
 
-    tx = await balancerContractsService.veBAL.unlock(getProvider());
+    tx = await balancerContractsService.veNFTE.unlock(getProvider());
 
     unlockActionState.init = false;
     unlockActionState.confirming = true;
@@ -157,7 +157,7 @@ async function submit() {
         </BalLink>
       </div>
       <BalBtn color="gray" outline block class="mt-2" @click="emit('close')">
-        {{ $t('unlockVeBAL.previewModal.returnToVeBalPage') }}
+        {{ $t('unlockveNFTE.previewModal.returnToveNFTEPage') }}
       </BalBtn>
     </template>
   </div>

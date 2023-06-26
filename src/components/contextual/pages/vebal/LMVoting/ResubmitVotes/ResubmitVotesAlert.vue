@@ -11,14 +11,14 @@ const isModalOpen = ref<boolean>(false);
   <BalAlert
     v-bind="$attrs"
     type="warning"
-    :title="t('veBAL.liquidityMining.resubmit.hint.title')"
+    :title="t('veNFTE.liquidityMining.resubmit.hint.title')"
     contentClass="w-full"
   >
     <div
       class="flex flex-col lg:flex-row gap-2 lg:gap-4 justify-between items-baseline lg:items-start pb-1 lg:pb-0"
     >
       <div class="mr-auto max-w-3xl">
-        {{ t('veBAL.liquidityMining.resubmit.resubmitWarning') }}
+        {{ t('veNFTE.liquidityMining.resubmit.resubmitWarning') }}
       </div>
 
       <BalBtn
@@ -26,7 +26,7 @@ const isModalOpen = ref<boolean>(false);
         class="flex-shrink-0"
         size="sm"
         @click="isModalOpen = true"
-        >{{ t('veBAL.liquidityMining.resubmit.btn') }}</BalBtn
+        >{{ t('veNFTE.liquidityMining.resubmit.btn') }}</BalBtn
       >
     </div>
   </BalAlert>

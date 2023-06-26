@@ -2,13 +2,13 @@
 import { computed } from 'vue';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import { isVeBalPool, totalAprLabel } from '@/composables/usePoolHelpers';
+import { isveNFTEPool, totalAprLabel } from '@/composables/usePoolHelpers';
 import { APR_THRESHOLD } from '@/constants/pools';
 import { bnum } from '@/lib/utils';
 import { Pool } from '@/services/pool/types';
 
 import StakingBreakdown from './components/StakingBreakdown.vue';
-import VeBalBreakdown from './components/VeBalBreakdown.vue';
+import veNFTEBreakdown from './components/veNFTEBreakdown.vue';
 import YieldBreakdown from './components/YieldBreakdown.vue';
 import { AprBreakdown } from '@balancer-labs/sdk';
 import { hasStakingRewards } from '@/composables/useAPR';
@@ -45,7 +45,7 @@ const hasYieldAPR = computed(() => {
   return bnum(apr.value?.tokenAprs.total || '0').gt(0);
 });
 
-const hasVebalAPR = computed((): boolean => isVeBalPool(props.pool.id));
+const hasveNFTEAPR = computed((): boolean => isveNFTEPool(props.pool.id));
 
 const totalLabel = computed((): string =>
   apr.value ? totalAprLabel(apr.value, props.pool.boost) : '0'
@@ -57,8 +57,8 @@ const totalLabel = computed((): string =>
     <template #activator>
       <div class="ml-1">
         <StarsIcon
-          v-if="hasYieldAPR || hasStakingRewards(apr) || hasVebalAPR"
-          :gradFrom="hasVebalAPR ? 'purple' : 'yellow'"
+          v-if="hasYieldAPR || hasStakingRewards(apr) || hasveNFTEAPR"
+          :gradFrom="hasveNFTEAPR ? 'purple' : 'yellow'"
           class="-mr-1 h-4"
           v-bind="$attrs"
         />
@@ -95,8 +95,8 @@ const totalLabel = computed((): string =>
           </span>
         </div>
 
-        <!-- VeBal APR -->
-        <VeBalBreakdown v-if="hasVebalAPR" :apr="apr?.protocolApr || 0" />
+        <!-- veNFTE APR -->
+        <veNFTEBreakdown v-if="hasveNFTEAPR" :apr="apr?.protocolApr || 0" />
 
         <!-- YIELD APR BREAKDOWN -->
         <YieldBreakdown

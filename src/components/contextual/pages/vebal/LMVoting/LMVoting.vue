@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import useExpiredGaugesQuery from '@/composables/queries/useExpiredGaugesQuery';
-import useVeBalLockInfoQuery from '@/composables/queries/useVeBalLockInfoQuery';
+import useveNFTELockInfoQuery from '@/composables/queries/useveNFTELockInfoQuery';
 import useVotingEscrowLocks from '@/composables/useVotingEscrowLocks';
 import useDebouncedRef from '@/composables/useDebouncedRed';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
@@ -46,7 +46,7 @@ const {
   refetch: refetchVotingGauges,
 } = useVotingGauges();
 const { fNum } = useNumbers();
-const veBalLockInfoQuery = useVeBalLockInfoQuery();
+const veNFTELockInfoQuery = useveNFTELockInfoQuery();
 
 const { shouldResubmitVotes } = useVotingEscrowLocks();
 
@@ -74,14 +74,14 @@ const unallocatedVoteWeight = computed(() => {
 
 const hasLock = computed(
   (): boolean =>
-    !!veBalLockInfoQuery.data.value?.hasExistingLock &&
-    !veBalLockInfoQuery.data.value?.isExpired
+    !!veNFTELockInfoQuery.data.value?.hasExistingLock &&
+    !veNFTELockInfoQuery.data.value?.isExpired
 );
 
 const hasExpiredLock = computed(
   (): boolean =>
-    !!veBalLockInfoQuery.data.value?.hasExistingLock &&
-    veBalLockInfoQuery.data.value?.isExpired
+    !!veNFTELockInfoQuery.data.value?.hasExistingLock &&
+    veNFTELockInfoQuery.data.value?.isExpired
 );
 
 const gaugesFilteredByExpiring = computed(() => {
@@ -186,9 +186,9 @@ watch(
     >
       <div class="px-4 xl:px-0 pb-2 max-w-3xl">
         <h3 class="mb-2">
-          {{ $t('veBAL.liquidityMining.title') }}
+          {{ $t('veNFTE.liquidityMining.title') }}
           <BalTooltip
-            :text="$t('veBAL.liquidityMining.description')"
+            :text="$t('veNFTE.liquidityMining.description')"
             iconSize="sm"
             iconClass="text-gray-400 dark:text-gray-600"
             width="72"
@@ -209,7 +209,7 @@ watch(
               My unallocated votes
             </p>
             <BalTooltip
-              :text="$t('veBAL.liquidityMining.myUnallocatedVotesTooltip')"
+              :text="$t('veNFTE.liquidityMining.myUnallocatedVotesTooltip')"
               iconClass="text-gray-400 dark:text-gray-600"
               iconSize="sm"
               width="72"
@@ -227,7 +227,7 @@ watch(
           </p>
           <BalTooltip
             v-if="hasExpiredLock"
-            :text="$t('veBAL.liquidityMining.votingPowerExpiredTooltip')"
+            :text="$t('veNFTE.liquidityMining.votingPowerExpiredTooltip')"
             iconSize="sm"
             :iconName="'alert-triangle'"
             :iconClass="'text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors'"
@@ -244,7 +244,7 @@ watch(
               Voting period ends
             </p>
             <BalTooltip
-              :text="$t('veBAL.liquidityMining.votingPeriodTooltip')"
+              :text="$t('veNFTE.liquidityMining.votingPeriodTooltip')"
               iconSize="sm"
               iconClass="text-gray-400 dark:text-gray-600"
               width="72"
@@ -258,7 +258,7 @@ watch(
             >
               {{
                 $t(
-                  'veBAL.liquidityMining.votingPeriodCountdown',
+                  'veNFTE.liquidityMining.votingPeriodCountdown',
                   votingPeriodEnd
                 )
               }}
@@ -313,7 +313,7 @@ watch(
       :logoURIs="orderedTokenURIs(activeVotingGauge)"
       :poolURL="poolURLFor(activeVotingGauge.pool, activeVotingGauge.network)"
       :unallocatedVoteWeight="unallocatedVoteWeight"
-      :veBalLockInfo="veBalLockInfoQuery.data.value"
+      :veNFTELockInfo="veNFTELockInfoQuery.data.value"
       @success="handleVoteSuccess"
       @close="handleModalClose"
     />

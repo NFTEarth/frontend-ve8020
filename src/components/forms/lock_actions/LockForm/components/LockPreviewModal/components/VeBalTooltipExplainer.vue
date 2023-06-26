@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useVeBal from '@/composables/useVeBAL';
+import useveNFTE from '@/composables/useveNFTE';
 
 /**
  * TYPES
@@ -11,7 +11,7 @@ import useVeBal from '@/composables/useVeBAL';
 type Props = {
   totalLpTokens: string;
   lockEndDate: string;
-  expectedVeBalAmount: string;
+  expectedveNFTEAmount: string;
 };
 
 /**
@@ -23,7 +23,7 @@ defineProps<Props>();
  * COMPOSABLES
  */
 const { fNum } = useNumbers();
-const { veBalTokenInfo } = useVeBal();
+const { veNFTETokenInfo } = useveNFTE();
 const { t } = useI18n();
 
 /**
@@ -31,16 +31,16 @@ const { t } = useI18n();
  */
 const conversationTableRows = computed(() => [
   {
-    label: t('getVeBAL.lockForm.lockPeriods.1y'),
-    value: `~1 ${veBalTokenInfo.value?.symbol}`,
+    label: t('getveNFTE.lockForm.lockPeriods.1y'),
+    value: `~1 ${veNFTETokenInfo.value?.symbol}`,
   },
   {
-    label: t('getVeBAL.lockForm.lockPeriods.6m'),
-    value: `~0.5 ${veBalTokenInfo.value?.symbol}`,
+    label: t('getveNFTE.lockForm.lockPeriods.6m'),
+    value: `~0.5 ${veNFTETokenInfo.value?.symbol}`,
   },
   {
-    label: t('getVeBAL.lockForm.lockPeriods.3m'),
-    value: `~0.25 ${veBalTokenInfo.value?.symbol}`,
+    label: t('getveNFTE.lockForm.lockPeriods.3m'),
+    value: `~0.25 ${veNFTETokenInfo.value?.symbol}`,
   },
 ]);
 </script>
@@ -53,15 +53,15 @@ const conversationTableRows = computed(() => [
     <div class="text-sm divide-y dark:divide-gray-900">
       <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded-t">
         <h5>
-          {{ fNum(expectedVeBalAmount, FNumFormats.token) }}
-          {{ veBalTokenInfo?.symbol }}
+          {{ fNum(expectedveNFTEAmount, FNumFormats.token) }}
+          {{ veNFTETokenInfo?.symbol }}
         </h5>
       </div>
       <div class="p-3">
         <div class="mb-3 text-secondary">
           {{
             $t(
-              'getVeBAL.previewModal.summary.totalVotingEscrowTooltip.explainer'
+              'getveNFTE.previewModal.summary.totalVotingEscrowTooltip.explainer'
             )
           }}
         </div>
@@ -72,14 +72,14 @@ const conversationTableRows = computed(() => [
                 <th class="table-header-cell">
                   {{
                     $t(
-                      'getVeBAL.previewModal.summary.totalVotingEscrowTooltip.table.lockPeriod'
+                      'getveNFTE.previewModal.summary.totalVotingEscrowTooltip.table.lockPeriod'
                     )
                   }}
                 </th>
                 <th class="table-header-cell">
                   {{
                     $t(
-                      'getVeBAL.previewModal.summary.totalVotingEscrowTooltip.table.totalVeBAL'
+                      'getveNFTE.previewModal.summary.totalVotingEscrowTooltip.table.totalveNFTE'
                     )
                   }}
                 </th>

@@ -2,19 +2,19 @@ import { computed, reactive } from 'vue';
 import { useQuery, UseQueryOptions } from '@tanstack/vue-query';
 
 import { balancerContractsService } from '@/services/balancer/contracts/balancer-contracts.service';
-import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
+import { veNFTELockInfo } from '@/services/balancer/contracts/contracts/veNFTE';
 import useWeb3 from '@/services/web3/useWeb3';
 
 import useNetwork from '../useNetwork';
-import { isVeBalSupported } from '../useVeBAL';
+import { isveNFTESupported } from '../useveNFTE';
 
 /**
  * TYPES
  */
-type QueryResponse = VeBalLockInfo;
+type QueryResponse = veNFTELockInfo;
 type QueryOptions = UseQueryOptions<QueryResponse>;
 
-export default function useVeBalQuery(options: QueryOptions = {}) {
+export default function useveNFTEQuery(options: QueryOptions = {}) {
   /**
    * COMPOSABLES
    */
@@ -23,10 +23,10 @@ export default function useVeBalQuery(options: QueryOptions = {}) {
   /**
    * COMPUTED
    */
-  const enabled = computed(() => isWalletReady.value && isVeBalSupported.value);
+  const enabled = computed(() => isWalletReady.value && isveNFTESupported.value);
 
   const queryFn = () =>
-    balancerContractsService.veBAL.getLockInfo(account.value);
+    balancerContractsService.veNFTE.getLockInfo(account.value);
 
   const queryOptions = reactive({
     enabled,
@@ -34,7 +34,7 @@ export default function useVeBalQuery(options: QueryOptions = {}) {
   });
 
   return useQuery<QueryResponse>(
-    reactive(['tokens', 'veBAL', { networkId, account }]),
+    reactive(['tokens', 'veNFTE', { networkId, account }]),
     queryFn,
     queryOptions as QueryOptions
   );
