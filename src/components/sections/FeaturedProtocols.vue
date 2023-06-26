@@ -7,21 +7,21 @@ const { t } = useI18n();
 
 const featuredProtocols = [
   {
-    title: 'Xave',
+    title: 'Arbitrum',
     description: t('featuredProtocols.Xave.description'),
     linkText: t('featuredProtocols.Xave.linkText'),
     imgSrc: '/images/banners/xave.jpg',
     link: EXTERNAL_LINKS.Xave.Home,
   },
   {
-    title: 'Fjord Foundry',
+    title: 'Google Cloud Platform',
     description: t('featuredProtocols.Copper.description'),
     linkText: t('featuredProtocols.Copper.linkText'),
     imgSrc: '/images/banners/fjord.png',
     link: EXTERNAL_LINKS.Copper.Home,
   },
   {
-    title: 'Gyroscope',
+    title: 'Balancer',
     description: t('featuredProtocols.Gyroscope.description'),
     linkText: t('featuredProtocols.Gyroscope.linkText'),
     imgSrc: '/images/banners/gyroscope.jpg',
@@ -29,7 +29,7 @@ const featuredProtocols = [
   },
 
   {
-    title: 'Beethoven X',
+    title: 'Layer2DAO',
     description: t('featuredProtocols.Beets.description'),
     linkText: t('featuredProtocols.Beets.linkText'),
     imgSrc: '/images/banners/beets.jpg',
