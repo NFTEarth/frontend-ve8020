@@ -1,5 +1,7 @@
 # NFTE Frontend App (v2)
 
+As veNFTE is an adopted variation of the ve8020 model introduced by Balancer, we've opted to use their sleek frontend for veNFTE locking.
+
 Official frontend app for the Balancer protocol (v2)
 
 ## Development
